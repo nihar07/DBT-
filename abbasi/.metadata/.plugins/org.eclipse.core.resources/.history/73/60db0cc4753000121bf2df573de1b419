@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+
+public class dbt {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		dbt mydbt = new dbt();
+		while(mydbt.entercommand().contains("EXIT")==false || mydbt.entercommand().contains("exit")==false){
+			
+			
+			
+			
+		}
+
+	}
+
+	public String entercommand() {
+		System.out.print("DbtSQL>");
+		String s = null;
+ 
+	    try {
+			BufferedReader bufferRead = new BufferedReader(
+					new InputStreamReader(System.in));
+			s = bufferRead.readLine();
+			System.out.println(s);
+		} catch (Exception e) {
+			System.out.print("Please enter something good");
+			// TODO: handle exception
+		}
+		return s;
+		
+	}
+	
+	
+}

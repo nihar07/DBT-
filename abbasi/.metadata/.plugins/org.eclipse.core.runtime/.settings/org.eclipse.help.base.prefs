@@ -1,0 +1,8 @@
+#Fri Nov 16 23:18:26 EST 2012
+remoteHelpPath=/infocenter/radhelp/v8,/help
+remoteHelpPreferred=true
+eclipse.preferences.version=1
+remoteHelpPort=80,63650
+remoteHelpName=Rational Application Developer,Local
+remoteHelpICEnabled=true,false
+remoteHelpHost=publib.boulder.ibm.com,127.0.0.1
