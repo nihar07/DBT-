@@ -4,6 +4,7 @@ import java.util.*;
 
 
 public class dbt {
+	Database database;
 
 	/**
 	 * @param args
@@ -74,9 +75,16 @@ public class dbt {
 			if(ts.get(1).toUpperCase().equals("DATABASE")  ){
 				
 				stype = stype + "+" + "DATABASE";
+				database = new Database(ts);
 				
-			} else if(ts.get(1).toUpperCase().equals("TABLE")  ){   /// needs to add check for dabase is null or not
-				
+			} else if(ts.get(1).toUpperCase().equals("TABLE")  ){
+				if(database == null){
+					stype = "  *Error:  Cannot create table - no database loaded.";
+					return stype;
+				}
+				String cs = CompleteStatement;
+				database.createTable(CompleteStatement);
+				//database.createTable(cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim());	
 
 				stype = stype + "+" + "TABLE";
 				
