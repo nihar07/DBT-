@@ -6,22 +6,27 @@ public class Database {
 	ArrayList<Table> tableList;
 	
 	public Database(ArrayList<String> args){
-		name = args.get(2).replace(";", "").trim();	
+		name = args.get(2).replace(";", "").trim().toUpperCase();
+		tableList = new ArrayList<Table>();
 	}
 	
 	// drop the current database
 	public void dropDB(String filename){
-		//remove external database file
-		File rmFile = new File(filename);
+		// capitalize filename for consistency
+		filename = filename.toUpperCase();
+		
+		// remove external database file
+		File rmFile = new File(filename + ".dbt");
 		rmFile.delete();
 		
-		name = null;
+		if(filename == name)
+			name = null;
 	}
 	
 	
 	// create a new table in the database
-	public void createTable(ArrayList<String> args){
-		tableList.add(new Table(args));
+	public void createTable(String command){
+		tableList.add(new Table(command));
 	}
 	
 	

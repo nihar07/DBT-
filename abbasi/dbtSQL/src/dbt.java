@@ -83,8 +83,8 @@ public class dbt {
 					return stype;
 				}
 				String cs = CompleteStatement;
-				database.createTable(CompleteStatement);
-				//database.createTable(cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim());	
+				//database.createTable(CompleteStatement);
+				database.createTable(cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim());	
 
 				stype = stype + "+" + "TABLE";
 				
