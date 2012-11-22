@@ -1,10 +1,14 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
+import com.thoughtworks.xstream.XStream;
+
 
 public class dbt {
-	Database database;
+	private Database database;
 
 	/**
 	 * @param args
@@ -17,11 +21,10 @@ public class dbt {
 		String firstkeyword = new String();
 		String input = mydbt.entercommand();
 		ArrayList<String> tokenizestatement = new ArrayList<String>();
-		 StringTokenizer st;
+		StringTokenizer st;
 		
 		while(input.toUpperCase().contains("EXIT")==false ){
-			
-			
+
 			st = new StringTokenizer(input);
 			
 			while (st.hasMoreTokens()) {
@@ -37,10 +40,7 @@ public class dbt {
 			tokenizestatement = new ArrayList<String>();
 			input = mydbt.entercommand();
 			
-			
-			
 		}
-
 	}
 
 	public String entercommand() {
@@ -56,15 +56,14 @@ public class dbt {
 			System.out.print("Please enter something good");
 			// TODO: handle exception
 		}
+	    
 		return s;
-		
 	}
 	
 	
 	//Checking statement type
 	public String checktypestatement(ArrayList<String> ts, String CompleteStatement) {
 		String stype = new String(); //checking statement type like CREATE , INSERT or LOAD or SELECT
-		
 		
 		if(ts.get(0).toUpperCase().equals("CREATE")  ){
 			
@@ -192,6 +191,35 @@ public class dbt {
 	}
 	
 	
-	
+	public void Save(Database DB){
+		FileOutputStream os = null;
+		try {
+			os = new FileOutputStream(DB.getName() + ".xml");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		XStream xstream = new XStream();
+		//Database
+		xstream.alias("database", Database.class);
+		//Tables
+		xstream.alias("table", Table.class);
+		xstream.alias("tables", TableList.class);
+		xstream.addImplicitCollection(TableList.class, "tables");
+		//Rows
+		xstream.alias("row", DataList.class);
+		xstream.alias("rows", RowList.class);
+		xstream.addImplicitCollection(RowList.class, "rows");
+		//Data
+		xstream.alias("data", Object.class);
+		
+		DB.createTable("TBL1");
+		DB.tableList.getTable("TBL1").rows.add(new DataList());
+		DB.tableList.getTable("TBL1").rows.getRow(0).add(10);
+		
+		String xml = xstream.toXML(DB);
+		System.out.println(xml);
+	}
 	
 }

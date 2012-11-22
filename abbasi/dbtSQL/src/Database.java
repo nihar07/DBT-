@@ -3,11 +3,11 @@ import java.util.*;
 
 public class Database {
 	String name;
-	ArrayList<Table> tableList;
+	TableList tableList;
 	
 	public Database(ArrayList<String> args){
 		name = args.get(2).replace(";", "").trim().toUpperCase();
-		tableList = new ArrayList<Table>();
+		tableList = new TableList();
 	}
 	
 	// drop the current database

@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Table {
 	String name;
-	ArrayList<ArrayList<Object>> rows;
+	RowList rows;
 	
 	public Table(String command){
 		// pull table name, trim whitespace before opening parenthesis
