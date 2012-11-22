@@ -215,8 +215,8 @@ public class dbt {
 		xstream.alias("data", Object.class);
 		
 		DB.createTable("TBL1");
-		DB.tableList.getTable("TBL1").rows.add(new DataList());
-		DB.tableList.getTable("TBL1").rows.getRow(0).add(10);
+		DB.tables.getTable("TBL1").rows.add(new DataList());
+		DB.tables.getTable("TBL1").rows.getRow(0).add(10);
 		
 		String xml = xstream.toXML(DB);
 		System.out.println(xml);
