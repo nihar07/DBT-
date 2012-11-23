@@ -1,28 +1,31 @@
+import java.text.*;
+
 
 public class Number {
-	int whole;
-	int numDigits;
-	int decimal;
-	int numDecimals;
+	double number;
+	int numInt;
+	int numFrac;
+	NumberFormat df;
 	
-	public Number(int w, int d, String input){
-		if(d > 0){
-			whole = Integer.parseInt(input.substring(0, input.indexOf('.')));
-			System.out.println(input.indexOf('.')+1);
-			System.out.println(input.indexOf('.')+1);
-			System.out.println(input.length());
-			decimal = Integer.parseInt(input.substring(input.indexOf('.')+1));
-		}
-		else
-			whole = Integer.parseInt(input);
-			
-				
+	public Number(int x, int y, String input){
+		numInt = x;
+		numFrac = y;
+		df = new DecimalFormat("#.0");
+		df.setMaximumIntegerDigits(x);
+		df.setMaximumFractionDigits(y);
 		
-			
+		number = Double.parseDouble(input);
+	}
+	
+	public int getNumInt(){
+		return numInt;
+	}
+	
+	public int getNumFrac(){
+		return numFrac;
 	}
 	
 	public String toString(){
-		String str = Integer.toString(whole) + "." + Integer.toString(decimal);
-		return str;
+		return df.format(number);
 	}
 }
