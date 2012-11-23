@@ -9,7 +9,7 @@ public class Table {
 		name = command.substring(0, command.indexOf('('));
 		command = command.substring(name.length(), command.length()).trim();
 		ArrayList<String> cmdList = createCmd(command);
-		
+		rows = new RowList();
 	}
 	
 	public ArrayList<String> createCmd(String command){

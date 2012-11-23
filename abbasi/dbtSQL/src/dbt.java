@@ -1,7 +1,15 @@
+import java.beans.XMLDecoder;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Writer;
 import java.util.*;
 
 import com.thoughtworks.xstream.XStream;
@@ -75,6 +83,8 @@ public class dbt {
 				
 				stype = stype + "+" + "DATABASE";
 				database = new Database(ts);
+				save(database);
+				//Load(database.getName());
 				
 			} else if(ts.get(1).toUpperCase().equals("TABLE")  ){
 				if(database == null){
@@ -191,35 +201,60 @@ public class dbt {
 	}
 	
 	
-	public void Save(Database DB){
-		FileOutputStream os = null;
-		try {
-			os = new FileOutputStream(DB.getName() + ".xml");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void save(Database DB){
+		File file = new File(DB.getName().toUpperCase() + ".xml");
 		
-		XStream xstream = new XStream();
-		//Database
-		xstream.alias("database", Database.class);
-		//Tables
-		xstream.alias("table", Table.class);
-		xstream.alias("tables", TableList.class);
-		xstream.addImplicitCollection(TableList.class, "tables");
-		//Rows
-		xstream.alias("row", DataList.class);
-		xstream.alias("rows", RowList.class);
-		xstream.addImplicitCollection(RowList.class, "rows");
-		//Data
-		xstream.alias("data", Object.class);
-		
-		DB.createTable("TBL1");
+		//Test sample
+		DB.createTable("TBL1(character(a));");
 		DB.tables.getTable("TBL1").rows.add(new DataList());
 		DB.tables.getTable("TBL1").rows.getRow(0).add(10);
 		
-		String xml = xstream.toXML(DB);
-		System.out.println(xml);
+		XStream xstream = new XStream();
+		//Database
+		xstream.alias("Database", Database.class);
+		//Tables
+		xstream.alias("Table", Table.class);
+		//xstream.alias("tables", TableList.class);
+		//xstream.addImplicitCollection(TableList.class, "tables");
+		//Rows
+		xstream.alias("Row", DataList.class);
+		//xstream.alias("rows", RowList.class);
+		//xstream.addImplicitCollection(RowList.class, "rows");
+		//Data
+		//xstream.alias("Data", Object.class);
+		
+		//String xml = xstream.toXML(DB);
+		Writer writer = null;
+		try {
+			writer = new FileWriter(file);
+			writer.write(xstream.toXML(DB));
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}        
+	}
+	
+	//public Database Load(String dbName){
+	public void Load(String dbName){
+		XStream xstream = new XStream();
+		
+		BufferedReader br;
+		StringBuffer buff = null;
+		try {
+			br = new BufferedReader(new FileReader(dbName + ".xml"));
+			buff = new StringBuffer();
+			String line;
+			while((line = br.readLine()) != null){
+			   buff.append(line);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		database = (Database)xstream.fromXML(buff.toString());
 	}
 	
 }
