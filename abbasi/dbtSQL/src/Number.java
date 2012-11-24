@@ -2,10 +2,15 @@ import java.text.*;
 
 
 public class Number {
+	String type = "NUMBER";
 	double number;
 	int numInt;
 	int numFrac;
 	NumberFormat df;
+	
+	public Number(String input){
+		number = Double.parseDouble(input);
+	}
 	
 	public Number(int x, int y, String input){
 		numInt = x;
@@ -15,6 +20,10 @@ public class Number {
 		df.setMaximumFractionDigits(y);
 		
 		number = Double.parseDouble(input);
+	}
+	
+	public String getDataType(){
+		return type;
 	}
 	
 	public int getNumInt(){

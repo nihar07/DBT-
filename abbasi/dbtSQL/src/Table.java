@@ -8,11 +8,12 @@ public class Table {
 		// pull table name, trim whitespace before opening parenthesis
 		name = command.substring(0, command.indexOf('('));
 		command = command.substring(name.length(), command.length()).trim();
-		ArrayList<String> cmdList = createCmd(command);
+		ArrayList<String> createList = parseCreate(command);
 		rows = new RowList();
+		createFields(createList);
 	}
 	
-	public ArrayList<String> createCmd(String command){
+	public ArrayList<String> parseCreate(String command){
 		ArrayList<String> parsedStatement = new ArrayList<String>();
 		String cmd = command;
 		
@@ -65,11 +66,116 @@ public class Table {
 			
 			// trim temp string, set new trimmed cmd string, reset pos to 0
 			temp = temp.trim();
+			parsedStatement.add(temp);
 			cmd = cmd.substring(pos, cmd.length()).trim();
 			pos = 0;
 				
 		}	
 		
 		return parsedStatement;
+	}
+	
+	public void createFields(ArrayList<String> list){
+		String name;
+		String type;
+		DataList dlist = new DataList();
+		
+		for(int i = 0; i < list.size(); i++){
+			String error = "Error in Create Table Syntax:  Field " + (i+1);
+			int places = 0;
+			StringTokenizer tokens = new StringTokenizer(list.get(i));
+			name = tokens.nextToken();
+			type = tokens.nextToken();
+			type = type.toUpperCase();
+			
+			if(type.contains("CHAR")){
+				if(!(type.contains("(") && type.contains(")"))){
+					System.out.println(error);
+					return;
+				}
+				else{
+					System.out.println(type.substring(0, type.indexOf('(')));
+					if(type.substring(0, type.indexOf('(')).contentEquals("CHAR") ||
+					type.substring(0, type.indexOf('(')).contentEquals("CHARACTER")){
+					
+						places = Integer.parseInt(type.substring(
+							             type.indexOf('(')+1,type.indexOf(')')));
+						Header header = new Header("CHARACTER", name, places);
+						dlist.add(header);
+					}
+					else{
+						System.out.println(error);
+						return;
+					}
+				}
+			}
+			else if(type.contains("INT")){
+				if(type.contains("(") && type.contains(")")){
+					if(type.substring(0, type.indexOf('(')).contentEquals("INT") ||
+						type.substring(0, type.indexOf('(')).contentEquals("INTEGER")){
+						places = Integer.parseInt(type.substring(
+								type.indexOf('(')+1, type.indexOf(')')));
+						Header header = new Header("INTEGER", name, places);
+						dlist.add(header);
+					}
+					else{
+						System.out.println(error);
+						return;
+					}
+				}
+				else if(type.contentEquals("INT") || 
+					type.contentEquals("INTEGER")){
+					Header header = new Header("INTEGER", name, places);
+					dlist.add(header);
+				}
+				else{
+					System.out.println(error);
+					return;
+				}
+			}
+			else if(type.contains("NUM")){
+				Header header;
+				if(type.contains("(") && type.contains(")")){
+					if(type.substring(0, type.indexOf('(')).contentEquals("NUM") ||
+							type.substring(0, type.indexOf('(')).contentEquals("NUMBER")){
+						if(type.substring(type.indexOf('(')+1, type.indexOf(')')).contains(",")){
+							places = Integer.parseInt(type.substring(
+									type.indexOf('(')+1, type.indexOf(',')));
+							int dec = Integer.parseInt(type.substring(
+									type.indexOf(',')+1, type.indexOf(')')));
+							header = new Header("NUMBER", name, places, dec);
+						}
+						else{
+							places = Integer.parseInt(type.substring(type.indexOf('('),
+																	 type.indexOf(')')));
+							header = new Header("NUMBER", name, places);
+						}
+						dlist.add(header);
+					}
+					else{
+						System.out.println(error);
+						return;
+					}
+				}
+				else if(type.contentEquals("NUM") || type.contentEquals("NUMBER")){
+					header = new Header("NUMBER", name, places);
+				}
+				else{
+					System.out.println(error);
+					return;
+				}
+			}
+			else if(type.contentEquals("DATE")){
+				Header header = new Header("DATE", name, 0);
+				dlist.add(header);
+			}
+			else{
+				System.out.println(error);
+				return;
+			}
+			
+		} //end for loop (all fields added to header row)
+		
+		rows.add(dlist);
 	}
 }

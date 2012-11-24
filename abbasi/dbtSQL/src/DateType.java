@@ -2,6 +2,7 @@ import java.util.*;
 
 
 public class DateType {
+	String type = "DATE";
 	String month;
 	String day;
 	String year;
@@ -30,13 +31,17 @@ public class DateType {
 			System.out.println("Error in date format (day)");
 		
 		//check number of characters in year
-		//DEFAULT: 2-digit year is 1900 + year (82 = 1982; 26 = 1926)
+		//DEFAULT: 2-digit year is 1900 + year (82 == 1982; 26 == 1926)
 		if(date.get(2).length() == 2)
 			year = "19" + date.get(2);
 		else if(date.get(2).length() == 4)
 			year = date.get(2);
 		else
 			System.out.println("Error in date format (year)");
+	}
+	
+	public String getType(){
+		return type;
 	}
 	
 	public String toString(){
