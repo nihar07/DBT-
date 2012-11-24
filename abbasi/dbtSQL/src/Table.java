@@ -180,12 +180,18 @@ public class Table {
 	
 	public void print(){
 		System.out.println(name + ": Table");
-		for(int i = 0; i < table.getSize(); i++){
-			for(int j = 0; j < table.getRow(i).getSize(); j++){
-				System.out.print(table.getRow(i).getData(j) + "\t");
-			}
-			System.out.println();
+		for(int i = 0; i < table.getRow(0).getSize(); i++)
+			System.out.print(table.getRow(0).getData(i) + "\t");
+		System.out.println();
+		System.out.println("----------------------------------------------");
+		if(table.getSize() > 0){
+			for(int i = 1; i < table.getSize(); i++){
+				for(int j = 0; j < table.getRow(i).getSize(); j++){
+					System.out.print(table.getRow(i).getData(j) + "\t");
+				}
+				System.out.println();
 			
+			}
 		}
 	}
 }

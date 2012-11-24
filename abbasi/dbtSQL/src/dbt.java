@@ -120,9 +120,9 @@ public class dbt {
 				String table = ts.get(3).replace(";","");
 				database.select(table);
 				
-} } else {
-	stype = "Syntax error";
-}
+			} } else {
+				stype = "Syntax error";
+			}
 			
 		} else if(ts.get(0).toUpperCase().equals("LOAD")  ){
 			stype = "LOAD COMMAND";
@@ -135,7 +135,7 @@ public class dbt {
 			}else {
 				stype = "Syntax error";
 			}
-		}else if(ts.get(0).toUpperCase().equals("SAVE") || ts.get(0).toUpperCase().equals("COMMIT") ){
+		}else if(ts.get(0).replace(";", "").trim().toUpperCase().equals("SAVE") || ts.get(0).replace(";", "").trim().toUpperCase().equals("COMMIT") ){
 			stype = "SAVE COMMAND";
 			if(database != null){
 				save(database);
@@ -167,11 +167,19 @@ public class dbt {
 				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
 					
 					stype = stype + "+" + "DATABASE";
+					if(database.dbCheck(ts.get(2).replace(";", "").trim().toUpperCase())){
+						database = null;
+						dropDB(ts.get(2).replace(";", "").trim().toUpperCase());
+					}else{
+						dropDB(ts.get(2).replace(";", "").trim().toUpperCase());
+					}
 					
 				} else if(ts.get(1).toUpperCase().equals("TABLE")  ){   /// needs to add check for database is null or not
 					
-
 					stype = stype + "+" + "TABLE";
+					if(!(database.tables.dropTable(ts.get(2).replace(";", "").trim().toUpperCase()))){
+						System.out.println("Table doesn't exist.");
+					}
 					
 					
 				}else {
@@ -196,7 +204,7 @@ public class dbt {
 	 * @param DB Database object holding the data saved.
 	 */
 	public void save(Database DB){
-		File file = new File(DB.getName().toUpperCase() + ".xml");
+		File file = new File(DB.getName().toUpperCase() + ".dbt");
 		
 		XStream xstream = new XStream();
 		Writer writer = null;
@@ -219,7 +227,7 @@ public class dbt {
 		BufferedReader br;
 		StringBuffer buff = null;
 		try {
-			br = new BufferedReader(new FileReader(dbName + ".xml"));
+			br = new BufferedReader(new FileReader(dbName + ".dbt"));
 			buff = new StringBuffer();
 			String line;
 			
@@ -235,8 +243,19 @@ public class dbt {
 		}
 	}
 	
+	// drop the database
+	public void dropDB(String filename){
+
+		// remove external database file
+		File rmFile = new File(filename + ".dbt");
+		if(rmFile.exists()){
+			rmFile.delete();
+		} else {
+			System.out.println("Database doesn't exist.");
+		}
+	}
 	
-	
+
 	public void insert(ArrayList<String> ts) {
 		
 		insertStatement is = new insertStatement();
