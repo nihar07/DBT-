@@ -64,6 +64,7 @@ public class dbt {
 	//Checking statement type
 	public String checktypestatement(ArrayList<String> ts, String CompleteStatement) {
 		String stype = new String(); //checking statement type like CREATE , INSERT or LOAD or SELECT
+		String cs = CompleteStatement;
 		
 		if(ts.get(0).toUpperCase().equals("CREATE")  ){
 			
@@ -81,8 +82,7 @@ public class dbt {
 					stype = "  *Error:  Cannot create table - no database loaded.";
 					return stype;
 				}
-				String cs = CompleteStatement;
-				//database.createTable(CompleteStatement);
+				
 				database.createTable(cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim());	
 
 				stype = stype + "+" + "TABLE";
@@ -102,7 +102,9 @@ public class dbt {
 						if(ts.size() > 1 ){
 							
 			if(ts.get(1).toUpperCase().equals("INTO")  ){
-							
+				String table = cs.substring((cs.toUpperCase()).indexOf("INTO")+4, cs.indexOf("(")).trim();
+				
+				//database.insert(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
 							stype = stype + "+" + "INTO";
 							
 			} } else {
@@ -147,7 +149,7 @@ public class dbt {
 			if(ts.size() > 1 ){
 				
 				if(ts.get(1).toUpperCase().equals("FROM")  ){
-					
+					//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
 					stype = stype + " +" + " FROM";
 					
 	} } else {
@@ -156,7 +158,7 @@ public class dbt {
 			
 			
 		} else if(ts.get(0).toUpperCase().equals("UPDATE")  ){
-			stype = "DELETE COMMAND";
+			stype = "UPDATE COMMAND";
 			
 			
 			
@@ -266,7 +268,7 @@ public class dbt {
 		
 		if(!ts.get(3).toUpperCase().equals("VALUES")){
 			
-			System.out.println("sysntax error missing VALUES");
+			System.out.println("syntax error missing VALUES");
 			
 		}
 		

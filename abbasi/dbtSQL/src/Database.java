@@ -30,4 +30,8 @@ public class Database {
 	public String getName(){
 		return name;
 	}
+	
+	public TableList getTables(){
+		return tables;
+	}
 }

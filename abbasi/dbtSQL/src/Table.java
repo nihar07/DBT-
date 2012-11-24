@@ -83,10 +83,10 @@ public class Table {
 		for(int i = 0; i < list.size(); i++){
 			String error = "Error in Create Table Syntax:  Field " + (i+1);
 			int places = 0;
+			String string = list.get(i);
 			StringTokenizer tokens = new StringTokenizer(list.get(i));
 			name = tokens.nextToken();
-			type = tokens.nextToken();
-			type = type.toUpperCase();
+			type = string.substring(name.length() + 1).trim().toUpperCase();
 			
 			if(type.contains("CHAR")){
 				if(!(type.contains("(") && type.contains(")"))){
@@ -94,11 +94,11 @@ public class Table {
 					return;
 				}
 				else{
-					if(type.substring(0, type.indexOf('(')).contentEquals("CHAR") ||
-					type.substring(0, type.indexOf('(')).contentEquals("CHARACTER")){
+					if(type.substring(0, type.indexOf('(')).trim().contentEquals("CHAR") ||
+					type.substring(0, type.indexOf('(')).trim().contentEquals("CHARACTER")){
 					
 						places = Integer.parseInt(type.substring(
-							             type.indexOf('(')+1,type.indexOf(')')));
+							             type.indexOf('(')+1,type.indexOf(')')).trim());
 						Header header = new Header("CHARACTER", name, places);
 						dlist.add(header);
 					}
@@ -110,10 +110,10 @@ public class Table {
 			}
 			else if(type.contains("INT")){
 				if(type.contains("(") && type.contains(")")){
-					if(type.substring(0, type.indexOf('(')).contentEquals("INT") ||
-						type.substring(0, type.indexOf('(')).contentEquals("INTEGER")){
+					if(type.substring(0, type.indexOf('(')).trim().contentEquals("INT") ||
+						type.substring(0, type.indexOf('(')).trim().contentEquals("INTEGER")){
 						places = Integer.parseInt(type.substring(
-								type.indexOf('(')+1, type.indexOf(')')));
+								type.indexOf('(')+1, type.indexOf(')')).trim());
 						Header header = new Header("INTEGER", name, places);
 						dlist.add(header);
 					}
@@ -135,18 +135,18 @@ public class Table {
 			else if(type.contains("NUM")){
 				Header header;
 				if(type.contains("(") && type.contains(")")){
-					if(type.substring(0, type.indexOf('(')).contentEquals("NUM") ||
-							type.substring(0, type.indexOf('(')).contentEquals("NUMBER")){
+					if(type.substring(0, type.indexOf('(')).trim().contentEquals("NUM") ||
+							type.substring(0, type.indexOf('(')).trim().contentEquals("NUMBER")){
 						if(type.substring(type.indexOf('(')+1, type.indexOf(')')).contains(",")){
 							places = Integer.parseInt(type.substring(
-									type.indexOf('(')+1, type.indexOf(',')));
+									type.indexOf('(')+1, type.indexOf(',')).trim());
 							int dec = Integer.parseInt(type.substring(
-									type.indexOf(',')+1, type.indexOf(')')));
+									type.indexOf(',')+1, type.indexOf(')')).trim());
 							header = new Header("NUMBER", name, places, dec);
 						}
 						else{
 							places = Integer.parseInt(type.substring(type.indexOf('('),
-																	 type.indexOf(')')));
+																	 type.indexOf(')')).trim());
 							header = new Header("NUMBER", name, places);
 						}
 						dlist.add(header);
@@ -177,6 +177,8 @@ public class Table {
 		
 		table.add(dlist);
 	}
+	
+	
 	
 	public void print(){
 		System.out.println(name + ": Table");
