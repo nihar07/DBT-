@@ -14,4 +14,8 @@ public class RowList {
 	public DataList getRow(int index){
 		return rows.get(index);
 	}
+	
+	public int getSize(){
+		return rows.size();
+	}
 }

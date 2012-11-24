@@ -14,4 +14,8 @@ public class DataList {
 	public Object getData(int index){
 		return entries.get(index);
 	}
+	
+	public int getSize(){
+		return entries.size();
+	}
 }

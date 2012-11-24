@@ -29,6 +29,13 @@ public class Database {
 		tables.add(new Table(command));
 	}
 	
+	public void select(String table){
+		Table t = tables.getTable(table);
+		if(t != null)
+			t.print();
+		else
+			System.out.println("Could not find table " + table);
+	}
 	
 	public boolean dbCheck(String dbName){
 		if(dbName == name)

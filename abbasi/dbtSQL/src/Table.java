@@ -2,14 +2,14 @@ import java.util.*;
 
 public class Table {
 	String name;
-	RowList rows;
+	RowList table;
 	
 	public Table(String command){
 		// pull table name, trim whitespace before opening parenthesis
 		name = command.substring(0, command.indexOf('('));
 		command = command.substring(name.length(), command.length()).trim();
 		ArrayList<String> createList = parseCreate(command);
-		rows = new RowList();
+		table = new RowList();
 		createFields(createList);
 	}
 	
@@ -94,7 +94,6 @@ public class Table {
 					return;
 				}
 				else{
-					System.out.println(type.substring(0, type.indexOf('(')));
 					if(type.substring(0, type.indexOf('(')).contentEquals("CHAR") ||
 					type.substring(0, type.indexOf('(')).contentEquals("CHARACTER")){
 					
@@ -176,6 +175,17 @@ public class Table {
 			
 		} //end for loop (all fields added to header row)
 		
-		rows.add(dlist);
+		table.add(dlist);
+	}
+	
+	public void print(){
+		System.out.println(name + ": Table");
+		for(int i = 0; i < table.getSize(); i++){
+			for(int j = 0; j < table.getRow(i).getSize(); j++){
+				System.out.print(table.getRow(i).getData(j) + "\t");
+			}
+			System.out.println();
+			
+		}
 	}
 }

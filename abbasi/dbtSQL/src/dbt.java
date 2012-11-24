@@ -52,7 +52,7 @@ public class dbt {
 			BufferedReader bufferRead = new BufferedReader(
 					new InputStreamReader(System.in));
 			s = bufferRead.readLine();
-			System.out.println(s);
+			System.out.println(s + "\n");
 		} catch (Exception e) {
 			System.out.print("Please enter something good");
 		}
@@ -117,6 +117,8 @@ public class dbt {
 			if(ts.get(1).toUpperCase().equals("*")  ){
 				
 				stype = stype + "+" + "* is here";
+				String table = ts.get(3).replace(";","");
+				database.select(table);
 				
 } } else {
 	stype = "Syntax error";
