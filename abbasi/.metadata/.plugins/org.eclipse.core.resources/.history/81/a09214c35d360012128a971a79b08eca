@@ -253,7 +253,7 @@ public class dbt {
 		
 		int i = 4;
 		boolean braccheck;
-		boolean bracend = false;
+		boolean bracend;
 		
 		
 if(!ts.get(4).toUpperCase().equals("(")){
@@ -265,13 +265,7 @@ if(!ts.get(4).toUpperCase().equals("(")){
 		}
 		while(ts.get(i).toUpperCase().equals(";")){
 			
-			if (bracend == true){
-				if(!ts.get(i).isEmpty() ){
-					System.out.println("syntax error insert not defined right");
-				}
-			}
-			
-			if(ts.get(i).toUpperCase().equals(")")){
+			if(!ts.get(4).toUpperCase().equals(")")){
 				
 				bracend = true;
 						
