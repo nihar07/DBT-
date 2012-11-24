@@ -1,0 +1,8 @@
+
+public class insertStatement {
+
+	String tableName = new String();
+	
+	
+	
+}

@@ -234,4 +234,45 @@ public class dbt {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public void insert(ArrayList<String> ts) {
+		
+		insertStatement is = new insertStatement();
+		
+		if(ts.size() > 7  ){
+		
+		is.tableName = (String) ts.get(2);
+		
+		if(!ts.get(3).toUpperCase().equals("VALUES")){
+			
+			System.out.println("sysntax error missing VALUES");
+			
+		}
+		
+		int i = 4;
+		boolean braccheck;
+		boolean bracend;
+		
+		
+if(!ts.get(4).toUpperCase().equals("(")){
+			
+			System.out.println("sysntax error missing VALUES");
+			
+		}
+		while(ts.get(i).toUpperCase().equals(";")){
+			
+			
+			i++;
+		}
+		
+		
+		
+		} else {
+			System.out.println("sysntax error missing parameteres");
+		}
+		
+		
+	}
 }
