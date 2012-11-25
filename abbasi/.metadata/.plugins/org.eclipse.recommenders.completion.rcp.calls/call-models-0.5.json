@@ -5,8 +5,9 @@
     "status": "RESOLVED"
   },
   "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\vm.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
     "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\vm.jar",
-    "status": "UNRESOLVED",
+    "status": "RESOLVED",
     "error": "No call model found for \u0027C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\vm.jar\u0027. Neither fingerprint \u00273deac84e862cdc905121bafe3d1548ff05840eb6\u0027 nor symbolic name \u0027jre\u0027 are known."
   },
   "C:\\Users\\GCN\\Documents\\GitHub\\DBT-\\abbasi\\dbtSQL\\src": {

@@ -314,7 +314,7 @@ public class Table {
 	public void deleterowswhere(String conditionField, String fieldValue){
 		String temprowfield;
 		int indexofcondfield = -1;
-		//System.out.println("table row size" + table.getRow(0).getSize() + "conditionField " + conditionField + "field value" + fieldValue);
+		System.out.println("table row size" + table.getRow(0).getSize() + "conditionField " + conditionField);
 		
 		for(int j = 0; j < table.getRow(0).getSize(); j++ ) {
 			//System.out.println("conditionField " + conditionField + "  " + table.getRow(0).getData(j)); 

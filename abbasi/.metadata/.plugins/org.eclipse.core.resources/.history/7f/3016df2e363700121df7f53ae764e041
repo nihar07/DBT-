@@ -177,8 +177,8 @@ public class dbt {
 				if(ts.size() > 6 ){
 				
 				conditionfield = ts.get(4).toUpperCase();
-				if(!ts.get(5).toUpperCase().equals("=")){
-					System.out.println("Syntax error missing = sign" + ts.get(5).toUpperCase());
+				if(!ts.get(4).toUpperCase().equals("=")){
+					System.out.println("Syntax error bmissing = sign")
 				}
 				fieldValue = ts.get(6).toUpperCase().replace(";", "").trim();
 				deleteRowwhere(tempRowname, conditionfield, fieldValue);

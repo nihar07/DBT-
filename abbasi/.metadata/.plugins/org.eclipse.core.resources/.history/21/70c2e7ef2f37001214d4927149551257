@@ -258,7 +258,7 @@ public class Table {
 						return;
 					}
 					
-				//	dlist.add(new CharType(h.getPlaces(), l));
+					dlist.add(new CharType(h.getPlaces(), l));
 					
 				}
 			}
@@ -298,7 +298,7 @@ public class Table {
 			//do nothing
 			System.out.println("no rows to delete");
 		} else {
-			for(int i = (table.getSize() - 1); i > 1; i--){
+			for(int i = table.getSize(); i > 1; i--){
 				
 				table.deleteRow(i);
 				//System.out.print(table.getRow(0).getData(i) + "\t");
@@ -313,32 +313,7 @@ public class Table {
 	
 	public void deleterowswhere(String conditionField, String fieldValue){
 		String temprowfield;
-		int indexofcondfield = -1;
-		//System.out.println("table row size" + table.getRow(0).getSize() + "conditionField " + conditionField + "field value" + fieldValue);
 		
-		for(int j = 0; j < table.getRow(0).getSize(); j++ ) {
-			//System.out.println("conditionField " + conditionField + "  " + table.getRow(0).getData(j)); 
-			if(conditionField.equals(table.getRow(0).getData(j).toString().toUpperCase())){
-				//System.out.println("conditionField " + conditionField + "  " + table.getRow(0).getData(j)); 
-		indexofcondfield = j;
-			}
-		}
-		System.out.println(indexofcondfield);
-		
-		if(indexofcondfield == -1){
-			System.out.println("condition field is not valid or does not exist");
-		} else {
-for(int i = (table.getSize() - 1); i > 1; i--){
-	
-	if(table.getRow(i).getData(indexofcondfield).toString().equals(fieldValue)){
-		table.deleteRow(i);
-		System.out.println("Row " + (i+1) + "got deleted");
-	}
-				
-				
-				//System.out.print(table.getRow(0).getData(i) + "\t");
-			}
-		}
 		//for(int j = 0; j < )
 	//	table.getRow(0).getData(index)
 		

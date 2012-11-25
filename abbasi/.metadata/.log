@@ -420,3 +420,13 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.eclipse.m2e.logback.appender 4 0 2012-11-24 23:00:00.410
 !MESSAGE Failed to open search index.
+!SESSION 2012-11-25 14:19:48.484 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2012-11-25 14:20:08.910
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
