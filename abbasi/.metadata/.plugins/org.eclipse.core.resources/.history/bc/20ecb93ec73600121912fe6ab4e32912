@@ -169,7 +169,7 @@ public class dbt {
 			String conditionfield;
 			String fieldValue;
 			if(!whereclause) {
-			deleteRow(tempRowname.replace(";", "").trim());
+			deleteRow(tempRowname);
 			} else {
 				if(ts.size() > 6 ){
 				

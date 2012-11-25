@@ -280,9 +280,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "84ce270e312dfc7c444652f3eae3b150c458ec6e",
-    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
-    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmjssefw.jar",
+    "jarFileFingerprint": "377ac2c7a0bdd6c59fbb434573c5f9a53ca4d129",
+    "jarFileModificationDate": "2010-04-09T17:20:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\endorsed\\geronimo-annotation_1.1_spec-1.0-20100114.202042-3.jar",
     "javaRuntime": true
   },
   {
@@ -293,9 +293,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "377ac2c7a0bdd6c59fbb434573c5f9a53ca4d129",
-    "jarFileModificationDate": "2010-04-09T17:20:34-04:00",
-    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\endorsed\\geronimo-annotation_1.1_spec-1.0-20100114.202042-3.jar",
+    "jarFileFingerprint": "84ce270e312dfc7c444652f3eae3b150c458ec6e",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmjssefw.jar",
     "javaRuntime": true
   },
   {
@@ -670,9 +670,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "1a989e5522b2a72ac3cf9032fde8bb1f98f4331e",
-    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
-    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\jlm.jar",
+    "jarFileFingerprint": "48b954413ccae6447762da8a2dbbaa255882a282",
+    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\JawBridge.jar",
     "javaRuntime": true
   },
   {
@@ -683,9 +683,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "48b954413ccae6447762da8a2dbbaa255882a282",
-    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
-    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\JawBridge.jar",
+    "jarFileFingerprint": "1a989e5522b2a72ac3cf9032fde8bb1f98f4331e",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\jlm.jar",
     "javaRuntime": true
   },
   {

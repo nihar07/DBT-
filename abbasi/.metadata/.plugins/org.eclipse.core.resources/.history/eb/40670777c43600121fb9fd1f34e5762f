@@ -159,7 +159,7 @@ public class dbt {
 		stype = "Syntax error";
 	}
 			boolean whereclause = false;
-			if(ts.size() > 3 )
+			
 			if(ts.get(3).toUpperCase().equals("WHERE")  ){
 				//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
 				stype = stype + " +" + " WHERE";
@@ -169,7 +169,7 @@ public class dbt {
 			String conditionfield;
 			String fieldValue;
 			if(!whereclause) {
-			deleteRow(tempRowname.replace(";", "").trim());
+			deleteRow(tempRowname);
 			} else {
 				if(ts.size() > 6 ){
 				

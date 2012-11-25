@@ -204,27 +204,18 @@ public class Table {
 		
 		if(table.getSize() == 1){
 			//do nothing
-			System.out.println("no rows to delete");
 		} else {
 			for(int i = table.getSize(); i > 1; i--){
 				
 				table.deleteRow(i);
 				//System.out.print(table.getRow(0).getData(i) + "\t");
-				
-				
 			}
-			System.out.println("deleted all rows from table");
 		}
 		
 		
 	}
 	
 public void deleterowswhere(String conditionField, String fieldValue){
-		String temprowfield;
-		
-		//for(int j = 0; j < )
-	//	table.getRow(0).getData(index)
-		
 		
 		if(table.getSize() == 1){
 			//do nothing
@@ -234,7 +225,7 @@ public void deleterowswhere(String conditionField, String fieldValue){
 				table.deleteRow(i);
 				//System.out.print(table.getRow(0).getData(i) + "\t");
 			}
-		}
+		
 		
 		
 	}

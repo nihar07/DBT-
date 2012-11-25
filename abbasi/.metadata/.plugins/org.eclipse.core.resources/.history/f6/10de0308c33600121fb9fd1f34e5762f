@@ -37,15 +37,6 @@ public class Database {
 	}
 	
 	
-	//delete rows with where
-		public void deleteRowstwhere(String deleterows, String condtionField, String fieldVa){
-			Table t = tables.getTable(deleterows);
-			if(t != null)
-				t.deleterowswhere(condtionField,fieldVa);
-			else
-				System.out.println("Could not find table " + deleterows);
-		}
-	
 	
 	public boolean dbCheck(String dbName){
 		return (dbName == name);

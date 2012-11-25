@@ -210,10 +210,7 @@ public class Table {
 				
 				table.deleteRow(i);
 				//System.out.print(table.getRow(0).getData(i) + "\t");
-				
-				
 			}
-			System.out.println("deleted all rows from table");
 		}
 		
 		
