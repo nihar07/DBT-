@@ -188,8 +188,6 @@ public class Table {
 		StringTokenizer st;
 		Header h;
 		int index;
-		int n;
-		int d;
 		
 		if(!checkParentheses(cmd))
 			return;
@@ -232,8 +230,6 @@ public class Table {
 			
 			
 			for(int i = 0; i < literals.size(); i++){
-				n = 0;
-				d = 0;
 				String fieldError = "Syntax error:  Field " + (i+1);
 				literalError = "Syntax error:  Literal " + (i+1);
 				
@@ -253,13 +249,69 @@ public class Table {
 						System.out.println(fieldError);
 						return;
 					}
+					//check length of string against assigned places
 					if(l.length() > h.getPlaces()){
-						System.out.println("Too many characters in literal" + (i+1));
+						System.out.println("Too many characters in literal " + (i+1));
 						return;
 					}
 					
-				//	dlist.add(new CharType(h.getPlaces(), l));
+					dlist.add(new CharType(h.getPlaces(), l));
+				}
+				//check for number type in field
+				else if(h.getType().equalsIgnoreCase("Integer")){
+					//verify that literal is integer
+					if(!(isInteger(l))){
+						System.out.println(literalError);
+						return;
+					}
+					//if places != 0, make sure integer isn't too long
+					if(h.getPlaces() > 0){
+						if(!(l.length() > h.getPlaces())){
+							dlist.add(new IntType(h.getPlaces(),l));
+						}
+						else{
+							System.out.println("Too many digits in literal " + (i+1));
+							return;
+						}
+					}
+					else  //else places == 0, add literal
+						dlist.add(new IntType(l));
+				}
+				//check for number type in field
+				else if(h.getType().equalsIgnoreCase("number")){
+					//verify that literal is double
+					if(!(isDouble(l))){
+						System.out.println(literalError);
+						return;
+					}
+					//if places != 0
+					if(h.getPlaces() > 0){
+						//check for decimal
+						if(l.contains(".")){
+							//verify length of integer part
+							if(!(l.substring(0,l.indexOf(".")).length()> h.getPlaces())
+										&& h.getDec() > 0){
+									//verify length of decimal part
+									if(!(l.substring(l.indexOf(".")).length() > h.getDec())){
+										dlist.add(new Number(h.getPlaces(), h.getDec(), l));
+										continue;
+									}
+							}					
+						}
+						//no decimal part, check length of integer
+						else if(!(l.length() > h.getPlaces())){
+							dlist.add(new Number(h.getPlaces(), l));
+							continue;
+						}
+					}
+					//no length specifiers; add to row
+					else{
+						dlist.add(new Number(l));
+						continue;
+					}
 					
+					System.out.println(literalError);
+					return;
 				}
 			}
 		}
@@ -369,5 +421,23 @@ for(int i = (table.getSize() - 1); i > 1; i--){
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean isInteger(String input){
+		try{
+			Integer.parseInt(input);
+			return true;
+		} catch(Exception e){
+			return false;
+		}
+	}
+	
+	public boolean isDouble(String input){
+		try{
+			Double.parseDouble(input);
+			return true;
+		} catch(Exception e){
+			return false;
+		}
 	}
 }

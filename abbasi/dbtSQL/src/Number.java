@@ -12,6 +12,15 @@ public class Number {
 		number = Double.parseDouble(input);
 	}
 	
+	public Number(int x, String input){
+		numInt = x;
+		df = new DecimalFormat("#");
+		df.setMaximumIntegerDigits(x);
+		df.setMaximumFractionDigits(0);
+		
+		number = Double.parseDouble(input);
+	}
+	
 	public Number(int x, int y, String input){
 		numInt = x;
 		numFrac = y;

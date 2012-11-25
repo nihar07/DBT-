@@ -202,7 +202,9 @@ public class dbt {
 				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
 					
 					stype = stype + "+" + "DATABASE";
-					if(database.dbCheck(ts.get(2).replace(";", "").trim().toUpperCase())){
+					if(database == null)
+						System.out.println("No database present - create or load a database first");
+					else if(database.dbCheck(ts.get(2).replace(";", "").trim().toUpperCase())){
 						database = null;
 						dropDB(ts.get(2).replace(";", "").trim().toUpperCase());
 					}else{

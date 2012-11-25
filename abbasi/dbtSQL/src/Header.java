@@ -30,12 +30,17 @@ public class Header {
 		return places;
 	}
 	
+	public int getDec(){
+		return dec;
+	}
+	
 	public String toString(){
+		String retString = name;
 		if((places + dec) > 0)
-			while(name.length() < (places + dec))
-				name = name + " ";
+			while(retString.length() < (places + dec))
+				retString = retString + " ";
 		else
-			name = name + "     ";
-		return name;
+			retString = retString + "     ";
+		return retString;
 	}
 }
