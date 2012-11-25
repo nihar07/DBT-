@@ -31,6 +31,11 @@ public class Header {
 	}
 	
 	public String toString(){
+		if((places + dec) > 0)
+			while(name.length() < (places + dec))
+				name = name + " ";
+		else
+			name = name + "     ";
 		return name;
 	}
 }

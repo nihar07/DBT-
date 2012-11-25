@@ -26,13 +26,6 @@ public class Database {
 	}
 	
 	public void insert(String cmd){
-		/*StringTokenizer st = new StringTokenizer(cmd);
-		st.nextToken();
-		if(!st.nextToken().equalsIgnoreCase("VALUES")){
-			System.out.println("Syntax error in insert command");
-			return;
-		}*/
-		
 		String tableName = "";
 		if(cmd.substring(0, cmd.toUpperCase().indexOf("VALUES")).contains("("))
 			tableName = cmd.substring(0, cmd.indexOf('(')).trim();
@@ -44,7 +37,7 @@ public class Database {
 			System.out.println("Insert failed:  Table " + tableName + " not found");
 			return;
 		}
-		t.insert(cmd.substring(cmd.indexOf("(")));
+		t.insert(cmd);
 	}
 	
 	//delete rows without where
@@ -68,7 +61,7 @@ public class Database {
 	
 	
 	public boolean dbCheck(String dbName){
-		return (dbName == name);
+		return (dbName.equalsIgnoreCase(name));
 	}
 	
 	public String getName(){

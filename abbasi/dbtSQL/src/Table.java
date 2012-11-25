@@ -181,18 +181,99 @@ public class Table {
 	}
 	
 	public void insert(String cmd){
+		String literalError;
+		ArrayList<String> fields = null;
+		ArrayList<String> literals = new ArrayList<String>();
+		DataList dlist = new DataList();
+		StringTokenizer st;
+		Header h;
+		int index;
+		int n;
+		int d;
+		
 		if(!checkParentheses(cmd))
 			return;
-		if(cmd.substring(0, cmd.indexOf("VALUES")).contains(")"))
-			;
 		
-		table.getRow(0).getFieldIndex("age");
+		//check for (field[, field]...)
+		if(cmd.substring(0, cmd.toUpperCase().indexOf("VALUES")).contains("(")
+				&& cmd.substring(0, cmd.toUpperCase().indexOf("VALUES")).contains(")")){
+			String f = cmd.substring(cmd.indexOf("(") + 1, cmd.indexOf(")"));
+			st = new StringTokenizer(f, ",");
+			fields = new ArrayList<String>();
+			while(st.hasMoreTokens())
+				fields.add(st.nextToken().trim());
+			cmd = cmd.substring(cmd.indexOf(")") + 1);
+		}
+		
+		//put literals into ArrayList
+		String l = cmd.substring(cmd.indexOf("(") + 1, cmd.lastIndexOf(")"));
+		st = new StringTokenizer(l, ",");
+		while(st.hasMoreTokens())
+			literals.add(st.nextToken().trim());
+		
+		//check number of literals
+		if(literals.size() != table.getRow(0).getSize()){
+			System.out.println("Error inserting tuple:  # literals != # attributes");
+			return;
+		}
+		
+		//if (field[, field]...) exists
+		if(fields != null){
+			//check number of fields
+			if(fields.size() != table.getRow(0).getSize()){
+				System.out.println("Error inserting tuple:  # fields != # attributes");
+				return;
+			}
+			//check number of fields against number of literals
+			if(literals.size() != fields.size()){
+				System.out.println("Syntax error:  # fields != # literals");
+				return;
+			}
+			
+			
+			for(int i = 0; i < literals.size(); i++){
+				n = 0;
+				d = 0;
+				String fieldError = "Syntax error:  Field " + (i+1);
+				literalError = "Syntax error:  Literal " + (i+1);
+				
+				//search for field name in the attributes
+				if((index = table.getRow(0).getFieldIndex(fields.get(i))) == -1){
+					System.out.println(fieldError);
+					return;
+				}
+				
+				h = (Header)table.getRow(0).getData(index);
+				l = literals.get(i);
+				
+				//check for char() type by start & end quotes
+				if(l.startsWith("\"") && l.endsWith("\"")){
+					l = l.substring(1, l.length() - 1);
+					if(!(h.getType().equalsIgnoreCase("character"))){
+						System.out.println(fieldError);
+						return;
+					}
+					if(l.length() > h.getPlaces()){
+						System.out.println("Too many characters in literal" + (i+1));
+						return;
+					}
+					
+					dlist.add(new CharType(h.getPlaces(), l));
+					
+				}
+			}
+		}
+		
+		
+		
+		
 	}
 	
 	public void print(){
 		System.out.println(name + ": Table");
-		for(int i = 0; i < table.getRow(0).getSize(); i++)
-			System.out.print(table.getRow(0).getData(i) + "\t");
+		for(int i = 0; i < table.getRow(0).getSize(); i++){
+			System.out.print(table.getRow(0).getData(i));
+		}
 		System.out.println();
 		System.out.println("----------------------------------------------");
 		if(table.getSize() > 0){
@@ -204,6 +285,8 @@ public class Table {
 			
 			}
 		}
+		for(int p = 0; p < 2; p++)
+			System.out.println();
 	}
 	
 	

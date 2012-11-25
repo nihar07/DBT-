@@ -99,9 +99,10 @@ public class dbt {
 		} else if(ts.get(0).toUpperCase().equals("INSERT")  ){
 						stype = "INSERT COMMAND";
 						
-			if(ts.size() > 1 ){
+			if(ts.size() > 1 && 
+					ts.get(1).toUpperCase().equals("INTO") && 
+					cs.toUpperCase().contains("VALUES")){
 							
-			if(ts.get(1).toUpperCase().equals("INTO")){
 				if(database != null)
 					database.insert(cs.substring(cs.toUpperCase().indexOf("INTO")+4).trim());
 				else
@@ -109,9 +110,9 @@ public class dbt {
 				
 				stype = stype + "+" + "INTO";
 							
-			} } else {
-				stype = "Syntax error";
 			}
+			else
+				stype = "Syntax error";
 						
 		} else if(ts.get(0).toUpperCase().equals("SELECT")  ){
 			stype = "SELECT COMMAND";
@@ -296,57 +297,4 @@ public class dbt {
 		public void deleteRowwhere(String tblName, String condtionField, String fieldVa){
 			database.deleteRowstwhere(tblName,condtionField, fieldVa);
 		}
-	
-
-	public void insert(ArrayList<String> ts) {
-		
-		insertStatement is = new insertStatement();
-		
-		if(ts.size() > 7  ){
-		
-		is.tableName = (String) ts.get(2);
-		
-		if(!ts.get(3).toUpperCase().equals("VALUES")){
-			
-			System.out.println("syntax error missing VALUES");
-			
-		}
-		
-		int i = 4;
-		boolean braccheck;
-		boolean bracend = false;
-		
-		
-if(!ts.get(4).toUpperCase().equals("(")){
-			
-	System.out.println("syntax error missing bracket");
-			
-		} else {
-			braccheck = true;
-		}
-		while(ts.get(i).toUpperCase().equals(";")){
-			
-			if (bracend == true){
-				if(!ts.get(i).isEmpty() ){
-					System.out.println("syntax error insert not defined right");
-				}
-			}
-			
-			if(ts.get(i).toUpperCase().equals(")")){
-				
-				bracend = true;
-						
-					}
-			
-			i++;
-		}
-		
-		
-		
-		} else {
-			System.out.println("sysntax error missing parameteres");
-		}
-		
-		
-	}
 }
