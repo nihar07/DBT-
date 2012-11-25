@@ -1,10 +1,10 @@
 
-public class Character {
+public class CharType {
 	String type = "CHARACTER";
 	String contents;
 	int numChar;
 	
-	public Character(int n, String input){
+	public CharType(int n, String input){
 		numChar = n;
 		if(input.length() < numChar)
 			contents = input;

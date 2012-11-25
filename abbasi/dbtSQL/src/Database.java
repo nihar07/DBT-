@@ -25,7 +25,15 @@ public class Database {
 			System.out.println("Could not find table " + table);
 	}
 	
-
+	public void insert(String command){
+		String tableName = command.substring(0, command.indexOf('(')).trim();
+		Table t = tables.getTable(tableName);
+		if(t == null){
+			System.out.println("Insert failed:  Table " + tableName + " not found");
+			return;
+		}
+		t.insert(command.substring(command.indexOf("(")));
+	}
 	
 	//delete rows withourt where
 	public void deleteRowst(String deleterows){
@@ -55,7 +63,7 @@ public class Database {
 		return name;
 	}
 	
-	public TableList getTables(){
-		return tables;
+	public Table getTable(String tableName){
+		return tables.getTable(tableName);
 	}
 }

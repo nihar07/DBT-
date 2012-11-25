@@ -21,6 +21,10 @@ public class Table {
 		cmd = cmd.replace(";", "").trim();
 		
 		// check for opening & closing parentheses
+		for(int i = 0; i < cmd.length(); i++){
+			int paren = 0;
+		
+		}
 		if(!(cmd.charAt(0) == '(' && cmd.charAt(cmd.length()-1) == ')')){
 			System.out.println("Syntax error in Create Table command");
 			return null;
@@ -178,7 +182,9 @@ public class Table {
 		table.add(dlist);
 	}
 	
-	
+	public void insert(String command){
+		
+	}
 	
 	public void print(){
 		System.out.println(name + ": Table");

@@ -102,9 +102,8 @@ public class dbt {
 						if(ts.size() > 1 ){
 							
 			if(ts.get(1).toUpperCase().equals("INTO")  ){
-				String table = cs.substring((cs.toUpperCase()).indexOf("INTO")+4, cs.indexOf("(")).trim();
-				
-				//database.insert(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
+				if(database != null)
+					database.insert(cs.substring(cs.toUpperCase().indexOf("INTO")+4).trim());
 							stype = stype + "+" + "INTO";
 							
 			} } else {
