@@ -20,13 +20,16 @@ public class Table {
 		// remove semicolon & trim white space
 		cmd = cmd.replace(";", "").trim();
 		
-		// check for opening & closing parentheses
+		// check for matching sets of parentheses
+		int paren = 0;
 		for(int i = 0; i < cmd.length(); i++){
-			int paren = 0;
-		
+			if(Character.valueOf(cmd.charAt(i)) == Character.valueOf('('))
+				paren += 1;
+			if(Character.valueOf(cmd.charAt(i)) == Character.valueOf(')'))
+				paren -= 1;
 		}
-		if(!(cmd.charAt(0) == '(' && cmd.charAt(cmd.length()-1) == ')')){
-			System.out.println("Syntax error in Create Table command");
+		if(paren != 0){
+			System.out.println("Syntax error in Create Table command:  mismatched parentheses");
 			return null;
 		}
 		
