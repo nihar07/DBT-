@@ -25,17 +25,29 @@ public class Database {
 			System.out.println("Could not find table " + table);
 	}
 	
-	public void insert(String command){
-		String tableName = command.substring(0, command.indexOf('(')).trim();
+	public void insert(String cmd){
+		/*StringTokenizer st = new StringTokenizer(cmd);
+		st.nextToken();
+		if(!st.nextToken().equalsIgnoreCase("VALUES")){
+			System.out.println("Syntax error in insert command");
+			return;
+		}*/
+		
+		String tableName = "";
+		if(cmd.substring(0, cmd.toUpperCase().indexOf("VALUES")).contains("("))
+			tableName = cmd.substring(0, cmd.indexOf('(')).trim();
+		else
+			tableName = cmd.substring(0, cmd.toUpperCase().indexOf("VALUES")).trim();
+		
 		Table t = tables.getTable(tableName);
 		if(t == null){
 			System.out.println("Insert failed:  Table " + tableName + " not found");
 			return;
 		}
-		t.insert(command.substring(command.indexOf("(")));
+		t.insert(cmd.substring(cmd.indexOf("(")));
 	}
 	
-	//delete rows withourt where
+	//delete rows without where
 	public void deleteRowst(String deleterows){
 		Table t = tables.getTable(deleterows);
 		if(t != null)

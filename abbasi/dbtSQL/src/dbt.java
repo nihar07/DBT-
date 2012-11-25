@@ -99,12 +99,15 @@ public class dbt {
 		} else if(ts.get(0).toUpperCase().equals("INSERT")  ){
 						stype = "INSERT COMMAND";
 						
-						if(ts.size() > 1 ){
+			if(ts.size() > 1 ){
 							
-			if(ts.get(1).toUpperCase().equals("INTO")  ){
+			if(ts.get(1).toUpperCase().equals("INTO")){
 				if(database != null)
 					database.insert(cs.substring(cs.toUpperCase().indexOf("INTO")+4).trim());
-							stype = stype + "+" + "INTO";
+				else
+					System.out.println("You must first create or load a database");
+				
+				stype = stype + "+" + "INTO";
 							
 			} } else {
 				stype = "Syntax error";

@@ -6,7 +6,7 @@ public class Table {
 	
 	public Table(String command){
 		// pull table name, trim whitespace before opening parenthesis
-		name = command.substring(0, command.indexOf('('));
+		name = command.substring(0, command.indexOf('(')).trim();
 		command = command.substring(name.length(), command.length()).trim();
 		ArrayList<String> createList = parseCreate(command);
 		table = new RowList();
@@ -21,17 +21,8 @@ public class Table {
 		cmd = cmd.replace(";", "").trim();
 		
 		// check for matching sets of parentheses
-		int paren = 0;
-		for(int i = 0; i < cmd.length(); i++){
-			if(Character.valueOf(cmd.charAt(i)) == Character.valueOf('('))
-				paren += 1;
-			if(Character.valueOf(cmd.charAt(i)) == Character.valueOf(')'))
-				paren -= 1;
-		}
-		if(paren != 0){
-			System.out.println("Syntax error in Create Table command:  mismatched parentheses");
+		if(!checkParentheses(cmd))
 			return null;
-		}
 		
 		// remove leading parenthesis
 		cmd = cmd.substring(1, cmd.length());
@@ -73,7 +64,8 @@ public class Table {
 			
 			// trim temp string, set new trimmed cmd string, reset pos to 0
 			temp = temp.trim();
-			parsedStatement.add(temp);
+			if(!(temp.contentEquals("")))
+				parsedStatement.add(temp);
 			cmd = cmd.substring(pos, cmd.length()).trim();
 			pos = 0;
 				
@@ -86,6 +78,9 @@ public class Table {
 		String name;
 		String type;
 		DataList dlist = new DataList();
+		
+		if(list == null)
+			return;
 		
 		for(int i = 0; i < list.size(); i++){
 			String error = "Error in Create Table Syntax:  Field " + (i+1);
@@ -185,8 +180,13 @@ public class Table {
 		table.add(dlist);
 	}
 	
-	public void insert(String command){
+	public void insert(String cmd){
+		if(!checkParentheses(cmd))
+			return;
+		if(cmd.substring(0, cmd.indexOf("VALUES")).contains(")"))
+			;
 		
+		table.getRow(0).getFieldIndex("age");
 	}
 	
 	public void print(){
@@ -228,7 +228,7 @@ public class Table {
 		
 	}
 	
-public void deleterowswhere(String conditionField, String fieldValue){
+	public void deleterowswhere(String conditionField, String fieldValue){
 		String temprowfield;
 		
 		//for(int j = 0; j < )
@@ -246,5 +246,20 @@ public void deleterowswhere(String conditionField, String fieldValue){
 		}
 		
 		
+	}
+
+	public boolean checkParentheses(String cmd){
+		int paren = 0;
+		for(int i = 0; i < cmd.length(); i++){
+			if(Character.valueOf(cmd.charAt(i)) == Character.valueOf('('))
+				paren += 1;
+			if(Character.valueOf(cmd.charAt(i)) == Character.valueOf(')'))
+				paren -= 1;
+		}
+		if(paren != 0){
+			System.out.println("Syntax error in command:  mismatched parentheses");
+			return false;
+		}
+		return true;
 	}
 }
