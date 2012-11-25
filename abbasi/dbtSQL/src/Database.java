@@ -15,6 +15,8 @@ public class Database {
 		tables.add(new Table(command));
 	}
 	
+	
+	
 	public void select(String table){
 		Table t = tables.getTable(table);
 		if(t != null)
@@ -22,6 +24,19 @@ public class Database {
 		else
 			System.out.println("Could not find table " + table);
 	}
+	
+
+	
+	//delete rows withourt where
+	public void deleteRowst(String deleterows){
+		Table t = tables.getTable(deleterows);
+		if(t != null)
+			t.deleteallrowsForthetable();
+		else
+			System.out.println("Could not find table " + deleterows);
+	}
+	
+	
 	
 	public boolean dbCheck(String dbName){
 		return (dbName == name);

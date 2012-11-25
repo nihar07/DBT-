@@ -410,3 +410,13 @@ Command-line arguments:  -os win32 -ws win32 -arch x86 -product com.ibm.rational
 
 !ENTRY org.eclipse.wst.common.project.facet.core 4 0 2012-11-24 12:29:12.199
 !MESSAGE Project facet portlet.dojo has not been defined. It is used in plugin com.ibm.etools.webtools.gadgets.ui.
+!SESSION 2012-11-24 22:37:46.532 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-11-24 23:00:00.410
+!MESSAGE Failed to open search index.

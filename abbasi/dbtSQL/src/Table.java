@@ -196,4 +196,22 @@ public class Table {
 			}
 		}
 	}
+	
+	
+	
+	
+	public void deleteallrowsForthetable(){
+		
+		if(table.getSize() == 1){
+			//do nothing
+		} else {
+			for(int i = table.getSize(); i > 1; i--){
+				
+				table.deleteRow(i);
+				//System.out.print(table.getRow(0).getData(i) + "\t");
+			}
+		}
+		
+		
+	}
 }

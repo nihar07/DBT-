@@ -146,7 +146,10 @@ public class dbt {
 			}
 		} else if(ts.get(0).toUpperCase().equals("DELETE")  ){
 			stype = "DELETE COMMAND";
-			if(ts.size() > 1 ){
+			
+			
+			// assuming condition is only = (equals).
+			if(ts.size() > 2 ){
 				
 				if(ts.get(1).toUpperCase().equals("FROM")  ){
 					//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
@@ -155,15 +158,39 @@ public class dbt {
 	} } else {
 		stype = "Syntax error";
 	}
+			boolean whereclause = false;
 			
-			
+			if(ts.get(3).toUpperCase().equals("WHERE")  ){
+				//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
+				stype = stype + " +" + " WHERE";
+				whereclause = true;
+} 			
+			String tempRowname = ts.get(2).toUpperCase();
+			String conditionfield;
+			String fieldValue;
+			if(!whereclause) {
+			deleteRow(tempRowname);
+			} else {
+				if(ts.size() > 6 ){
+				
+				conditionfield = ts.get(4).toUpperCase();
+				fieldValue = ts.get(6).toUpperCase().replace(";", "").trim();
+				deleteRowwhere(tempRowname, conditionfield, fieldValue);
+				
+			} else {
+				stype = "Syntax error bad where clause";
+			}
+				
+			}
+		
+		
 		} else if(ts.get(0).toUpperCase().equals("UPDATE")  ){
 			stype = "UPDATE COMMAND";
 			
 			
 			
 		} else if(ts.get(0).toUpperCase().equals("DROP")  ){
-			stype = "DELETE COMMAND";
+			stype = "DROP COMMAND";
 			if(ts.size() > 2  ){
 				
 				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
@@ -256,6 +283,17 @@ public class dbt {
 			System.out.println("Database doesn't exist.");
 		}
 	}
+	
+	//delete row without WHERE condition..
+		public void deleteRow(String tblName){
+			database.deleteRowst(tblName);
+		}
+		
+		
+		//delete row with WHERE condition..
+		public void deleteRowwhere(String tblName, String condtionField, String fieldVa){
+			
+		}
 	
 
 	public void insert(ArrayList<String> ts) {

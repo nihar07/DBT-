@@ -1,0 +1,717 @@
+[
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a8775db965ef96eeff0016cb741a35d9a9ca4284",
+    "jarFileModificationDate": "2010-04-09T21:12:44-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\healthcenter.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8ad206e3e9ea70cccd5517c705ba57f6da9eaf6e",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmjcefw.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "69af67c1e61594b667152bd62c7ebb9300252639",
+    "jarFileModificationDate": "2010-04-09T21:12:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\logging.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f692e1398ef408a6cb83f3e70b71628a4bf614dc",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\ibmjcefips.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c1733312c32dcc73b3018b735fbb95d9ee03860b",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\ibmjceprovider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7f9eb63f804cf8fc90cac7784475d179650ec847",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmjsseprovider2.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.thoughtworks.xstream.xstream",
+    "version": {
+      "major": 1,
+      "minor": 4,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3427c153a5ad0f2cfa923528ad8be875c8cb1cff",
+    "jarFileModificationDate": "2012-11-24T22:13:56.655-05:00",
+    "location": "C:\\Users\\GCN\\Documents\\GitHub\\DBT-\\abbasi\\dbtSQL\\lib\\xstream-1.4.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "6bcce574cbbc5a4be32d2ec1ea0848fa79efdb51",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmsaslfw.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "6ea63fc666af95a2035255c34a38433344a7147f",
+    "jarFileModificationDate": "2010-04-09T21:12:24-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\jdmpview.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d9cee96af6617cf7c50381f396e404a5fb695053",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\CmpCrmf.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ebe3439eff7ee9826c175fdfb7c3eb49a46cf01c",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\ibmxmlencprovider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "736d35266c97437ce717f81a0cc5f4f4a4c320d2",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\ibmcmsprovider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8f00008ac74b51708d19a49af644ffd8d5e0aed5",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\xml.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "76a142e63ba166b660bb748845741311516d0938",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\ibmsaslprovider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3020cb219a5271e51d0bb2e70c24911ef1c1ce3e",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmxmlcrypto.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "df652f4f2b6212df8c4e7a90ff6f68dbccb3ac8d",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\ibmkeycert.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f021f7de2d0ccecf0bf7024c949fd0fe50d8bfec",
+    "jarFileModificationDate": "2010-04-09T21:13:24-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\rt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "13cc56bb325252e257ca59e1f94f9e315645afc0",
+    "jarFileModificationDate": "2010-04-09T21:12:36-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\security.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "00e9ffd3f26043f3bbe76957fec6087fa9bc16d9",
+    "jarFileModificationDate": "2010-04-09T21:12:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\java.util.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0494b130cfa1de29fe038577541d295c0f87d9c1",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\xmlencfw.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "64f7ca8d4cb9540d901464f5f37d098b40b87c35",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\gskikm.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "84ce270e312dfc7c444652f3eae3b150c458ec6e",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmjssefw.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "377ac2c7a0bdd6c59fbb434573c5f9a53ca4d129",
+    "jarFileModificationDate": "2010-04-09T17:20:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\endorsed\\geronimo-annotation_1.1_spec-1.0-20100114.202042-3.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "13880238a23c12c3cdbdc96a69ee64817e62cf43",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmcertpathfw.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e3f0af515ea56102f8b3f568d3bef420f75cbb85",
+    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f0858f5ced6352f0aca440090ec0f4cce9df6f99",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmjgssprovider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4434e5a46b2875771b0c481f95ffd727b218b467",
+    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\jaccess.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f15b035e3314dcf28ff2cb7b5ea818c7fb95a5af",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmpkcs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4eac671092eb11749c9dbdf1c0ab18132dc4f3f8",
+    "jarFileModificationDate": "2010-04-09T21:12:44-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\javascript.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e95b0a950b1b550087895d3204ab757c78ce5fc4",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmorb.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5c634983f71fd6aa6d8aca254fcbe5e1b05c3028",
+    "jarFileModificationDate": "2010-04-09T21:12:00-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\resources.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "bcf23b1d858c6f69d67c851d497984d25345d0b1",
+    "jarFileModificationDate": "2010-04-09T17:20:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\endorsed\\jaxb-api.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9f54edc8291ffd152de258dc300d80dafd7470cf",
+    "jarFileModificationDate": "2010-04-09T21:12:24-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\dtfj-interface.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1e5a532be688fb8f8c23bc148a0e5b9093fad42c",
+    "jarFileModificationDate": "2010-04-09T21:12:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\jndi.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "59488319765ebb705d62a07c9278a57cf61912f0",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmorbapi.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "acd38cb4e0da61265a1c610db743e276ee6869c0",
+    "jarFileModificationDate": "2010-04-09T21:12:44-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\JavaDiagnosticsCollector.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8c6f68b4eb881239338fa576456121d219552f71",
+    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "xmlpull_1_0_5",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "91430168f3ddecadcc85cd0d11398893af77d351",
+    "jarFileModificationDate": "2012-11-24T22:13:56.621-05:00",
+    "location": "C:\\Users\\GCN\\Documents\\GitHub\\DBT-\\abbasi\\dbtSQL\\lib\\xmlpull_1_0_5.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d09516636b33e71dbe32950146be0cbf05e4c194",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmcertpathprovider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "35d3c82c6d581f1e3edd452186aac256bd4524bb",
+    "jarFileModificationDate": "2010-04-09T21:12:24-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\dtfj.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "aa930391b60a8e4911538c846a2e6728ed86a3d3",
+    "jarFileModificationDate": "2010-04-09T21:12:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\annotation.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "51dacab9eb210c5f929bfc9d558a093d3a58cd10",
+    "jarFileModificationDate": "2010-04-09T21:12:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\beans.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3deac84e862cdc905121bafe3d1548ff05840eb6",
+    "jarFileModificationDate": "2010-04-09T21:12:24-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\vm.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8ed43196e44f020701be22ff3ae56243da08a526",
+    "jarFileModificationDate": "2010-04-09T21:12:36-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\sql.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4f2f14c95ddb26a0c3449e263f0a12a0cf51c049",
+    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\management-agent.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "xpp3-1.1.4c",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9b988ea84b9e4e9f1874e390ce099b8ac12cfff5",
+    "jarFileModificationDate": "2012-11-24T22:13:56.627-05:00",
+    "location": "C:\\Users\\GCN\\Documents\\GitHub\\DBT-\\abbasi\\dbtSQL\\lib\\xpp3-1.1.4c.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "49b4adad1a276bd9c156f3cf49542381e834809b",
+    "jarFileModificationDate": "2010-04-09T17:20:34-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\endorsed\\jaxws-api.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f0f717c2ff3edb5d50ec8bcb80eeb02e143c7518",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmjgssfw.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9ac9b1308813ff8a53070149bde107fab4bf0c0b",
+    "jarFileModificationDate": "2010-04-09T21:12:24-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\dtfjview.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ec19a908d5c5f3cea3b212bb6e58ee6510c2742e",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ibmcfw.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "6554d02967c9e428e700c2863e394ca8f91dd6ef",
+    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1a989e5522b2a72ac3cf9032fde8bb1f98f4331e",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\jlm.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "48b954413ccae6447762da8a2dbbaa255882a282",
+    "jarFileModificationDate": "2010-04-09T21:11:30-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\JawBridge.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "dad91252dacab98b4c0ae7ea67d2aabb09befbf6",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\ibmpkcs11impl.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "47f346aa13f3799391aaccfa90dcea0eabce31e0",
+    "jarFileModificationDate": "2010-04-09T21:12:32-04:00",
+    "location": "C:\\Program Files (x86)\\IBM\\SDP\\jdk\\jre\\lib\\ext\\IBMKeyManagementServer.jar",
+    "javaRuntime": true
+  }
+]

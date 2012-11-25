@@ -15,6 +15,10 @@ public class RowList {
 		return rows.get(index);
 	}
 	
+	public DataList deleteRow(int index){
+		return rows.remove(index);
+	}
+	
 	public int getSize(){
 		return rows.size();
 	}
