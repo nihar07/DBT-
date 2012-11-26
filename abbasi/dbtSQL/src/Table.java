@@ -485,7 +485,7 @@ public class Table {
 		Header h;
 		
 		//print table name
-		System.out.println(name + ": Table");
+		System.out.println("\n" + name + ": Table");
 		
 		//print attributes
 		for(int i = 0; i < attributes; i++){
@@ -493,17 +493,33 @@ public class Table {
 			headers.add(h);
 			System.out.print(h + "   ");
 		}
+		//print divider line
 		System.out.print("\n----------------------------------------");
 		System.out.println("----------------------------------------");
+	
+		//print tuples
 		if(rows > 0){
 			for(int i = 1; i < rows; i++){
 				for(int j = 0; j < attributes; j++){
 					String space = "   ";
-					if(headers.get(j).getPlaces() + headers.get(j).getDec() > 0){
+					
+					//if NULL value, set spacing
+					NullType n = new NullType();
+					if(table.getRow(i).getData(j).getClass() == n.getClass()){
+						space = "";
+						while((headers.get(j).toString().length() + 3) > 
+								space.length() + 4)
+							space = space + " ";
+					}
+					//if no specified number of characters
+					else if(headers.get(j).getPlaces() + headers.get(j).getDec() > 0){
+						//add spaces until value length is header length
 						while((headers.get(j).getName().length() + 3) >
 							(headers.get(j).getPlaces() + headers.get(j).getDec()
 							+ space.length()))
 							space = space + " ";
+						
+						//if NUMBER type, add one extra space for alignment
 						if(headers.get(j).getType().equals("NUMBER"))
 							space = space + " ";
 					}
