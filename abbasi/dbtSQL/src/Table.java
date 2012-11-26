@@ -106,6 +106,7 @@ public class Table {
 				//error if no opening & closing parentheses
 				if(!(type.contains("(") && type.contains(")"))){
 					System.out.println(error);
+					this.name = null;
 					return;
 				}
 				else{
