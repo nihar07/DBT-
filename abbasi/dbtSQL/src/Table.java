@@ -67,8 +67,7 @@ public class Table {
 			if(!(temp.contentEquals("")))
 				parsedStatement.add(temp);
 			cmd = cmd.substring(pos, cmd.length()).trim();
-			pos = 0;
-				
+			pos = 0;		
 		}	
 		
 		return parsedStatement;
@@ -85,6 +84,7 @@ public class Table {
 		for(int i = 0; i < list.size(); i++){
 			String error = "Error in Create Table Syntax:  Field " + (i+1);
 			int places = 0;
+			boolean notNull = false;
 			String string = list.get(i);
 			StringTokenizer tokens = new StringTokenizer(list.get(i));
 			name = tokens.nextToken();
@@ -92,6 +92,8 @@ public class Table {
 			
 			//check for CHAR
 			if(type.contains("CHAR")){
+				if(type.contains("NOT NULL"))
+					notNull = true;
 				//error if no opening & closing parentheses
 				if(!(type.contains("(") && type.contains(")"))){
 					System.out.println(error);
@@ -104,7 +106,7 @@ public class Table {
 						//pull number of characters & create Header object
 						places = Integer.parseInt(type.substring(
 							             type.indexOf('(')+1,type.indexOf(')')).trim());
-						Header header = new Header("CHARACTER", name, places);
+						Header header = new Header("CHARACTER", name, places, notNull);
 						dlist.add(header);
 					}
 					//mismatched data type
@@ -122,7 +124,7 @@ public class Table {
 						type.substring(0, type.indexOf('(')).trim().contentEquals("INTEGER")){
 						places = Integer.parseInt(type.substring(
 								type.indexOf('(')+1, type.indexOf(')')).trim());
-						Header header = new Header("INTEGER", name, places);
+						Header header = new Header("INTEGER", name, places, notNull);
 						dlist.add(header);
 					}
 					//mismatched data type
@@ -134,7 +136,7 @@ public class Table {
 				//no parentheses
 				else if(type.contentEquals("INT") || 
 					type.contentEquals("INTEGER")){
-					Header header = new Header("INTEGER", name, places);
+					Header header = new Header("INTEGER", name, places, notNull);
 					dlist.add(header);
 				}
 				//mismatched data type
@@ -156,13 +158,13 @@ public class Table {
 									type.indexOf('(')+1, type.indexOf(',')).trim());
 							int dec = Integer.parseInt(type.substring(
 									type.indexOf(',')+1, type.indexOf(')')).trim());
-							header = new Header("NUMBER", name, places, dec);
+							header = new Header("NUMBER", name, places, dec, notNull);
 						}
 						//no comma - parse integer digits
 						else{
 							places = Integer.parseInt(type.substring(type.indexOf('('),
 																	 type.indexOf(')')).trim());
-							header = new Header("NUMBER", name, places);
+							header = new Header("NUMBER", name, places, notNull);
 						}
 						//add Header to DataList
 						dlist.add(header);
@@ -175,7 +177,7 @@ public class Table {
 				}
 				//no argument for # digits
 				else if(type.contentEquals("NUM") || type.contentEquals("NUMBER")){
-					header = new Header("NUMBER", name, places);
+					header = new Header("NUMBER", name, places, notNull);
 					dlist.add(header);
 				}
 				//mismatched data type
@@ -186,7 +188,7 @@ public class Table {
 			}
 			//check for DATE
 			else if(type.contentEquals("DATE")){
-				Header header = new Header("DATE", name, 0);
+				Header header = new Header("DATE", name, 0, notNull);
 				dlist.add(header);
 			}
 			//unknown data type
@@ -204,9 +206,11 @@ public class Table {
 		String literalError;
 		ArrayList<String> fields = null;
 		ArrayList<String> literals = new ArrayList<String>();
+		ArrayList<Header> headers = new ArrayList<Header>();
+		Header h;
 		DataList dlist = new DataList();
 		StringTokenizer st;
-		Header h;
+		int attributes = table.getRow(0).getSize();
 		int index;
 		
 		if(!checkParentheses(cmd))
@@ -230,28 +234,32 @@ public class Table {
 			literals.add(st.nextToken().trim());
 		
 		//check number of literals
-		if(literals.size() != table.getRow(0).getSize()){
+		/*if(literals.size() != table.getRow(0).getSize()){
 			System.out.println("Error inserting tuple:  # literals != # attributes");
 			return;
-		}
+		}*/
 		
 		//if (field[, field]...) exists
 		if(fields != null){
 			//check number of fields
-			if(fields.size() != table.getRow(0).getSize()){
+			/*if(fields.size() != table.getRow(0).getSize()){
 				System.out.println("Error inserting tuple:  # fields != # attributes");
 				return;
-			}
+			}*/
 			//check number of fields against number of literals
 			if(literals.size() != fields.size()){
 				System.out.println("Syntax error:  # fields != # literals");
 				return;
 			}
 		}
-		
-		//insert as many Objects into dlist as there are literals
-		for(int i = 0; i < literals.size(); i++)
-			dlist.add(new Object());
+	
+		//fill dlist ArrayList with NULL
+		//fill headers ArrayList with headers
+		for(int i = 0; i < attributes; i++){
+			dlist.add(new NullType());
+			headers.add((Header)table.getRow(0).getData(i));
+		}
+			
 		
 		for(int i = 0; i < literals.size(); i++){
 			String fieldError = "Syntax error:  Field " + (i+1);
@@ -269,7 +277,7 @@ public class Table {
 			else
 				index = i;
 			
-			h = (Header)table.getRow(0).getData(index);
+			h = headers.get(index);
 			l = literals.get(i);
 				
 			//check for char() type by start & end quotes
@@ -371,7 +379,79 @@ public class Table {
 			}	
 		}
 		
+		NullType n = new NullType();
+		for(int i = 0; i < dlist.getSize(); i++){
+			if(headers.get(i).notNull && (dlist.getData(i).getClass() == n.getClass())){
+				System.out.println("Insert error:  Null value inserted into NOT NULL field");
+				return;
+			}
+		}
+		
 		table.add(dlist);
+	}
+	
+	/* UpdateFields
+	 * Updates the fields of the entered table.
+	 */
+	public String updateFields(ArrayList<String> attrNames, DataList values, String condAttr, Object condValue, boolean conditional){
+		ArrayList<Integer> rowNum = new ArrayList<Integer>();
+		ArrayList<Integer> indices = new ArrayList<Integer>();
+		ArrayList<Object> changedValues = new ArrayList<Object>();
+		
+		for(int count = 0; count < attrNames.size(); count++){
+			int index = getHeaderIndex(attrNames.get(count));
+			if(index == -1){
+				return "Entered field '" + attrNames.get(count) + "' is not in table '" + name + "'.";
+			}else{
+				if(!conditional){
+					int num;
+					for(num = 1; num < table.getSize(); num++){
+						rowNum.add(num);
+						indices.add(index);
+						changedValues.add(values.getData(count));
+					}
+					if(num == 1){
+						return "There is no data in the table.";
+					}
+				}else{
+					int condIndex = getHeaderIndex(condAttr.trim());
+					if(condIndex == -1){
+						return "Entered field '" + condAttr + "' is not in table '" + name + "'.";
+					}else{
+						int num;
+						for(num = 1; num < table.getSize(); num++){
+							if(table.getRow(num).getData(condIndex).equals(condValue)){
+								rowNum.add(num);
+								indices.add(index);
+								changedValues.add(values.getData(count));
+							}
+						}
+						if(num == 1){
+							return "There is no data in the table.";
+						}
+					}
+				}
+			}
+		}
+		
+		//Make changes to the table values
+		for(int i = 0; i < indices.size(); i++){
+			table.getRow(rowNum.get(i)).setData(indices.get(i), changedValues.get(i));
+		}
+		
+		return "";
+	}
+	
+	public int getHeaderIndex(String fieldName){
+		int index = -1;
+		for(int i = 0; i < table.getRow(0).getSize(); i++){
+			Header attr = (Header) table.getRow(0).getData(i);
+			if(attr.getName().equalsIgnoreCase(fieldName)){
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 	
 	public void print(){
@@ -414,27 +494,19 @@ public class Table {
 		}
 	}
 	
-	
-	
-	
 	public void deleteallrowsForthetable(){
-		 
 		if(table.getSize() == 1){
 			//do nothing
 			System.out.println("no rows to delete");
-		} else {
+		}
+		else {
 			System.out.println("deleted all rows from table before " + (table.getSize() - 1) );
 			for(int i = (table.getSize() - 1); i > 0; i--){
 				//System.out.println(table.getRow(i).toString() + "\t");
 				table.deleteRow(i);
-		 
-		 
-		 
 			}
 			System.out.println("deleted all rows from table");
-		}
-		 
-		 
+		}	 
 	}
 	
 	public void deleterowswhere(String conditionField, String fieldValue){
@@ -446,41 +518,24 @@ public class Table {
 			// System.out.println("conditionField " + conditionField + ".  " + table.getRow(0).getData(j).toString().trim().toUpperCase() + "."); 
 			if(conditionField.contains(table.getRow(0).getData(j).toString().trim().toUpperCase())){
 				System.out.println("conditionField " + conditionField + "  " + table.getRow(0).getData(j)); 
-		indexofcondfield = j;
+				indexofcondfield = j;
 			}
 		}
 		System.out.println(indexofcondfield);
 		 
 		if(indexofcondfield == -1){
 			System.out.println("condition field is not valid or does not exist");
-		} else {
-for(int i = (table.getSize() - 1); i > 0; i--){
-	System.out.println("fieldvalue" + fieldValue + ". " + table.getRow(i).getData(indexofcondfield).toString() + "." + i );
+		}
+		else {
+			for(int i = (table.getSize() - 1); i > 0; i--){
+				System.out.println("fieldvalue" + fieldValue + ". " + table.getRow(i).getData(indexofcondfield).toString() + "." + i );
 		 
-	if((fieldValue.toString().trim().toUpperCase()).equals(table.getRow(i).getData(indexofcondfield).toString().trim().toUpperCase())){
-		table.deleteRow(i);
-		System.out.println("Row " + (i+1) + "got deleted");
-	}
-		 
-		 
-				//System.out.print(table.getRow(0).getData(i) + "\t");
+				if((fieldValue.toString().trim().toUpperCase()).equals(table.getRow(i).getData(indexofcondfield).toString().trim().toUpperCase())){
+					table.deleteRow(i);
+					System.out.println("Row " + (i+1) + "got deleted");
+				}
 			}
 		}
-		//for(int j = 0; j < )
-	// table.getRow(0).getData(index)
-		 
-		 
-		// if(table.getSize() == 1){
-			// //do nothing
-		// } else {
-			// for(int i = table.getSize(); i > 1; i--){
-				//
-				// table.deleteRow(i);
-				// //System.out.print(table.getRow(0).getData(i) + "\t");
-			// }
-		// }
-		 
-		 
 	}
 
 	public boolean checkParentheses(String cmd){

@@ -17,6 +17,7 @@ public class dbt {
 	 */
 	public static void main(String[] args) {
 		
+		System.out.println("Welcome to DBT SQL!");
 		dbt mydbt = new dbt();
 		String temp = new String();
 		String input = mydbt.entercommand();
@@ -101,7 +102,7 @@ public class dbt {
 		}
 		else if(ts.get(0).toUpperCase().equals("INSERT")  ){
 			stype = "INSERT COMMAND";
-						
+			
 			if(ts.size() > 1 && 
 					ts.get(1).toUpperCase().equals("INTO") && 
 					cs.toUpperCase().contains("VALUES")){
@@ -117,23 +118,20 @@ public class dbt {
 			else
 				stype = "Syntax error";
 						
-		} else if(ts.get(0).toUpperCase().equals("SELECT")  ){
+		}
+		else if(ts.get(0).toUpperCase().equals("SELECT")  ){
 			stype = "SELECT COMMAND";
 			
 			if(ts.size() > 1 ){
-			
 				if(ts.get(1).toUpperCase().equals("*")  ){
-				
 					stype = stype + "+" + "* is here";
 					String table = ts.get(3).replace(";","");
 					database.select(table);
-				
 				}
 			}
 			else {
 				stype = "Syntax error";
 			}
-			
 		}
 		else if(ts.get(0).toUpperCase().equals("LOAD")  ){
 			stype = "LOAD COMMAND";
@@ -199,6 +197,27 @@ public class dbt {
 		}
 		else if(ts.get(0).toUpperCase().equals("UPDATE")  ){
 			stype = "UPDATE COMMAND";
+			if(database == null){
+				return "A database must be created or loaded first.";
+			}
+			if(ts.size() < 4){
+				return "Syntax Error: Missing arguments.";
+			}
+			if(database.tables == null){
+				return "A table must be created first.";
+			}
+			if(database.tables.getTable(ts.get(1).trim().toUpperCase()) != null){
+					if(ts.get(2).equalsIgnoreCase("SET")){
+					
+						System.out.println(update(ts.get(1), CompleteStatement));
+					}
+					else {
+						return "Syntax Error: Missing 'SET' keyword.";
+					}
+			}
+			else{
+				return "Table doesn't exist in database " + database.name + ".";
+			}
 		}
 		else if(ts.get(0).toUpperCase().equals("DROP")  ){
 			stype = "DROP COMMAND";
@@ -225,7 +244,6 @@ public class dbt {
 				}
 				else
 					stype = "Please enter something good";
-				
 			}
 			else
 					stype = "Syntax error";
@@ -280,7 +298,10 @@ public class dbt {
 		}
 	}
 	
-	// drop the database
+	/* DropDB
+	 * Drop the entered database, removing the dbt file.
+	 * @param filename Name of the database file to be removed.
+	 */
 	public void dropDB(String filename){
 
 		// remove external database file
@@ -292,14 +313,73 @@ public class dbt {
 		}
 	}
 	
+	/* Update
+	 * Updates the entered table value. A condition can be added to limit where the value is set.
+	 * @param tableName Holds the table name being updated.
+	 * @param cs Holds the complete statement entered in the console.
+	 */
+	public String update(String tableName, String cs){
+		String[] fields = cs.split(",");
+		fields = cs.split("=");
+		
+		if(fields.length <=1){
+			return "Syntax error: The fields are not formatted correctly.";
+		}else{
+			StringTokenizer st = new StringTokenizer(cs.trim());
+			st.nextToken(); //Update
+			st.nextToken(); //Table Name
+			st.nextToken(); //Set
+			boolean conditional = false;
+			String attrStr = "";
+			String condStr = "";
+			String condName = "";
+			Object condValue = new Object();
+			while(st.hasMoreTokens()){
+				String str = st.nextToken();
+				
+				if(str.equalsIgnoreCase("where")){
+					conditional = true;
+					break;
+				}
+
+				attrStr = attrStr + str;
+			}
+			if(conditional){
+				while(st.hasMoreTokens()){
+					condStr = condStr + st.nextToken().replace(";", "").trim();
+				}
+				Object[] obj = condStr.split("=");
+				if(obj.length > 1){
+					condName = (String)obj[0];
+					condValue = obj[1];
+				} else{
+					return "Syntax Error: The conditional statement is not formatted correctly."; 
+				}
+			}
+			
+			String[] attributes = attrStr.replace(";", "").trim().split(",");
+			ArrayList<String> attrNames = new ArrayList<String>();
+			DataList attrValues = new DataList();
+			
+			for(int i = 0; i < attributes.length; i++){
+				Object[] obj = attributes[i].split("=");
+				attrNames.add((String)obj[0]);
+				attrValues.add(obj[1]);
+			}
+			
+			//Updates table
+			return database.tables.getTable(tableName).updateFields(attrNames, attrValues, condName, condValue, conditional);
+		}
+	}
+	
 	//delete row without WHERE condition..
-		public void deleteRow(String tblName){
-			database.deleteRowst(tblName);
-		}
+	public void deleteRow(String tblName){
+		database.deleteRowst(tblName);
+	}
 		
 		
-		//delete row with WHERE condition..
-		public void deleteRowwhere(String tblName, String condtionField, String fieldVa){
-			database.deleteRowstwhere(tblName,condtionField, fieldVa);
-		}
+	//delete row with WHERE condition..
+	public void deleteRowwhere(String tblName, String condtionField, String fieldVa){
+		database.deleteRowstwhere(tblName,condtionField, fieldVa);
+	}
 }

@@ -4,18 +4,21 @@ public class Header {
 	String name;
 	int places;
 	int dec;
+	boolean notNull;
 	
-	public Header(String dataType, String fieldName, int numPlaces){
+	public Header(String dataType, String fieldName, int numPlaces, boolean isNotNull){
 		type = dataType;
 		name = fieldName;
 		places = numPlaces;
+		notNull = isNotNull;
 	}
 	
-	public Header(String dataType, String fieldName, int numPlaces, int numDecimals){
+	public Header(String dataType, String fieldName, int numPlaces, int numDecimals, boolean isNotNull){
 		type = dataType;
 		name = fieldName;
 		places = numPlaces;
 		dec = numDecimals;
+		notNull = isNotNull;
 	}
 	
 	public String getType(){
@@ -32,6 +35,10 @@ public class Header {
 	
 	public int getDec(){
 		return dec;
+	}
+	
+	public boolean notNull(){
+		return notNull;
 	}
 	
 	public String toString(){

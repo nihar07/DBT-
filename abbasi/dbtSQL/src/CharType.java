@@ -19,6 +19,6 @@ public class CharType {
 		while(retString.length() < numChar)
 			retString = retString + " ";
 		
-	return retString;
+		return retString;
 	}
 }

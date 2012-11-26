@@ -34,7 +34,7 @@ public class DataList {
 	public int getFieldIndex(String fieldName){
 		int index;
 		for(index = 0; index < entries.size(); index++){
-			Object o = new Header("d", "d", 0);
+			Object o = new Header("d", "d", 0, false);
 			if(entries.get(index).getClass() == o.getClass()){
 				Header h = (Header)entries.get(index);
 				if(h.getName().equalsIgnoreCase(fieldName))
@@ -42,5 +42,9 @@ public class DataList {
 			}			
 		}
 		return -1;		
+	}
+	
+	public void setData(int index, Object data){
+		entries.set(index, data);
 	}
 }
