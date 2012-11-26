@@ -291,6 +291,7 @@ public class dbt {
 			}
 
 			database = (Database)xstream.fromXML(buff.toString());
+			br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Database doesn't exist.");
 		} catch (IOException e) {
