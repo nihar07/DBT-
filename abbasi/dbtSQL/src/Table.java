@@ -90,7 +90,9 @@ public class Table {
 			name = tokens.nextToken();
 			type = string.substring(name.length() + 1).trim().toUpperCase();
 			
+			//check for CHAR
 			if(type.contains("CHAR")){
+				//error if no opening & closing parentheses
 				if(!(type.contains("(") && type.contains(")"))){
 					System.out.println(error);
 					return;
@@ -99,18 +101,22 @@ public class Table {
 					if(type.substring(0, type.indexOf('(')).trim().contentEquals("CHAR") ||
 					type.substring(0, type.indexOf('(')).trim().contentEquals("CHARACTER")){
 					
+						//pull number of characters & create Header object
 						places = Integer.parseInt(type.substring(
 							             type.indexOf('(')+1,type.indexOf(')')).trim());
 						Header header = new Header("CHARACTER", name, places);
 						dlist.add(header);
 					}
+					//mismatched data type
 					else{
 						System.out.println(error);
 						return;
 					}
 				}
 			}
+			//check for INT
 			else if(type.contains("INT")){
+				//check for opening & closing parentheses
 				if(type.contains("(") && type.contains(")")){
 					if(type.substring(0, type.indexOf('(')).trim().contentEquals("INT") ||
 						type.substring(0, type.indexOf('(')).trim().contentEquals("INTEGER")){
@@ -119,26 +125,32 @@ public class Table {
 						Header header = new Header("INTEGER", name, places);
 						dlist.add(header);
 					}
+					//mismatched data type
 					else{
 						System.out.println(error);
 						return;
 					}
 				}
+				//no parentheses
 				else if(type.contentEquals("INT") || 
 					type.contentEquals("INTEGER")){
 					Header header = new Header("INTEGER", name, places);
 					dlist.add(header);
 				}
+				//mismatched data type
 				else{
 					System.out.println(error);
 					return;
 				}
 			}
+			//check for NUM
 			else if(type.contains("NUM")){
 				Header header;
+				//check for opening & closing parentheses
 				if(type.contains("(") && type.contains(")")){
 					if(type.substring(0, type.indexOf('(')).trim().contentEquals("NUM") ||
 							type.substring(0, type.indexOf('(')).trim().contentEquals("NUMBER")){
+						//check for decimal digit formatting - parse integer & decimal digits
 						if(type.substring(type.indexOf('(')+1, type.indexOf(')')).contains(",")){
 							places = Integer.parseInt(type.substring(
 									type.indexOf('(')+1, type.indexOf(',')).trim());
@@ -146,30 +158,37 @@ public class Table {
 									type.indexOf(',')+1, type.indexOf(')')).trim());
 							header = new Header("NUMBER", name, places, dec);
 						}
+						//no comma - parse integer digits
 						else{
 							places = Integer.parseInt(type.substring(type.indexOf('('),
 																	 type.indexOf(')')).trim());
 							header = new Header("NUMBER", name, places);
 						}
+						//add Header to DataList
 						dlist.add(header);
 					}
+					//mismatched data type
 					else{
 						System.out.println(error);
 						return;
 					}
 				}
+				//no argument for # digits
 				else if(type.contentEquals("NUM") || type.contentEquals("NUMBER")){
 					header = new Header("NUMBER", name, places);
 				}
+				//mismatched data type
 				else{
 					System.out.println(error);
 					return;
 				}
 			}
+			//check for DATE
 			else if(type.contentEquals("DATE")){
 				Header header = new Header("DATE", name, 0);
 				dlist.add(header);
 			}
+			//unknown data type
 			else{
 				System.out.println(error);
 				return;
@@ -245,9 +264,9 @@ public class Table {
 					return;
 				}
 			}
-			else{
+			//(field[, field]...) not present; index literals in order
+			else
 				index = i;
-			}
 			
 			h = (Header)table.getRow(0).getData(index);
 			l = literals.get(i);
@@ -326,6 +345,7 @@ public class Table {
 					continue;
 				}
 				
+				//error has occurred in formatting
 				System.out.println(literalError);
 				return;
 			}
@@ -338,13 +358,14 @@ public class Table {
 						dlist.add(index, new DateType(l));
 					}
 				}
+				//date format error
 				else{
 					System.out.println(literalError);
 					return;
 				}
 			}
 			else{
-				System.out.println("What just happened?");
+				System.out.println("An unknown error has occurred in INSERT.  Please try again.\n");
 				return;
 			}	
 		}
@@ -353,16 +374,18 @@ public class Table {
 	}
 	
 	public void print(){
+		//print table name
 		System.out.println(name + ": Table");
+		
+		//print attributes
 		for(int i = 0; i < table.getRow(0).getSize(); i++){
 			System.out.print(table.getRow(0).getData(i));
 		}
-		System.out.println();
-		System.out.println("----------------------------------------------");
+		System.out.println("\n----------------------------------------------");
 		if(table.getSize() > 0){
 			for(int i = 1; i < table.getSize(); i++){
 				for(int j = 0; j < table.getRow(i).getSize(); j++){
-					System.out.print(table.getRow(i).getData(j));
+					System.out.print(table.getRow(i).getData(j) + "   ");
 				}
 				System.out.println();
 			

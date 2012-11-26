@@ -19,29 +19,26 @@ public class dbt {
 		
 		dbt mydbt = new dbt();
 		String temp = new String();
-		String firstkeyword = new String();
 		String input = mydbt.entercommand();
 		ArrayList<String> tokenizestatement = new ArrayList<String>();
 		StringTokenizer st;
 		
 		while(input.toUpperCase().contains("EXIT")==false ){
-
 			st = new StringTokenizer(input);
 			
+			//split input into tokens
 			while (st.hasMoreTokens()) {
 				tokenizestatement.add(st.nextToken());
-		        // System.out.println(st.nextToken());
 		     }
-			//firstkeyword = (String) st.nextElement();
 			
+			//check input
 			temp = mydbt.checktypestatement(tokenizestatement, input);
-			
 			System.out.println(temp);
-			
 			tokenizestatement = new ArrayList<String>();
 			input = mydbt.entercommand();
-			
 		}
+		
+		System.out.println("\"Exit\" detected.  Program terminated.");
 	}
 
 	public String entercommand() {
@@ -52,56 +49,58 @@ public class dbt {
 			BufferedReader bufferRead = new BufferedReader(
 					new InputStreamReader(System.in));
 			s = bufferRead.readLine();
-			System.out.println(s + "\n");
 		} catch (Exception e) {
-			System.out.print("Please enter something good");
+			System.out.print("Invalid input");
 		}
 	    
 		return s;
 	}
 	
 	
-	//Checking statement type
+	//Check statement type
 	public String checktypestatement(ArrayList<String> ts, String CompleteStatement) {
 		String stype = new String(); //checking statement type like CREATE , INSERT or LOAD or SELECT
 		String cs = CompleteStatement;
 		
+		//if CREATE
 		if(ts.get(0).toUpperCase().equals("CREATE")  ){
-			
-			stype = "CREATE COMMAND";
+			//stype = "CREATE COMMAND";
 			
 			if(ts.size() > 2  ){
-			
-			if(ts.get(1).toUpperCase().equals("DATABASE")  ){
+				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
 				
-				stype = stype + "+" + "DATABASE";
-				database = new Database(ts);
+					//stype = stype + "+" + "DATABASE";
+					database = new Database(ts);
+					stype = "Database created:  " + database.getName() + "\n";
 				
-			} else if(ts.get(1).toUpperCase().equals("TABLE")  && cs.contains("(")){
-				String cmd = cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim();
-				String name = cmd.substring(0, cmd.indexOf("(")).trim().toUpperCase();
-				if(database == null){
-					stype = "  *Error:  Cannot create table - no database loaded";
-					return stype;
 				}
-				else if(database.getTable(name) != null){
-					stype = "  *Error:  Table already exists in database";
-					return stype;
+				else if(ts.get(1).toUpperCase().equals("TABLE")  && cs.contains("(")){
+					String cmd = cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim();
+					String name = cmd.substring(0, cmd.indexOf("(")).trim().toUpperCase();
+					
+					if(database == null){
+						stype = "  *Error:  Cannot create table - no database loaded";
+						return stype;
+					}
+					else if(database.getTable(name) != null){
+						stype = "  *Error:  Table already exists in database";
+						return stype;
+					}
+					
+					database.createTable(cmd);	
+					stype = "Table created:  " + name + "\n";
+				
 				}
-				
-				database.createTable(cmd);	
-				stype = stype + "+" + "TABLE";
-				
-			}else {
-				stype = "Please enter something good";
+				else 
+					stype = "Please enter something good";
 			}
-			} else {
+			else {
 				stype = "Syntax error";
 			}
-		//  stype = "CREATE COMMAND";
-			
-		} else if(ts.get(0).toUpperCase().equals("INSERT")  ){
-						stype = "INSERT COMMAND";
+			//stype = "CREATE COMMAND";
+		}
+		else if(ts.get(0).toUpperCase().equals("INSERT")  ){
+			stype = "INSERT COMMAND";
 						
 			if(ts.size() > 1 && 
 					ts.get(1).toUpperCase().equals("INTO") && 
@@ -123,119 +122,116 @@ public class dbt {
 			
 			if(ts.size() > 1 ){
 			
-			if(ts.get(1).toUpperCase().equals("*")  ){
+				if(ts.get(1).toUpperCase().equals("*")  ){
 				
-				stype = stype + "+" + "* is here";
-				String table = ts.get(3).replace(";","");
-				database.select(table);
+					stype = stype + "+" + "* is here";
+					String table = ts.get(3).replace(";","");
+					database.select(table);
 				
-			} } else {
+				}
+			}
+			else {
 				stype = "Syntax error";
 			}
 			
-		} else if(ts.get(0).toUpperCase().equals("LOAD")  ){
+		}
+		else if(ts.get(0).toUpperCase().equals("LOAD")  ){
 			stype = "LOAD COMMAND";
 			
-			if(ts.size() > 2 ){
-				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
-					stype = stype + "+" + "DATABASE";
-					load(ts.get(2));
-				}
-			}else {
+			if(ts.size() > 2 && ts.get(1).toUpperCase().equals("DATABASE")  ){
+				stype = stype + "+" + "DATABASE";
+				load(ts.get(2));
+			}
+			else {
 				stype = "Syntax error";
 			}
-		}else if(ts.get(0).replace(";", "").trim().toUpperCase().equals("SAVE") || ts.get(0).replace(";", "").trim().toUpperCase().equals("COMMIT") ){
+		}
+		else if(ts.get(0).replace(";", "").trim().toUpperCase().equals("SAVE") || ts.get(0).replace(";", "").trim().toUpperCase().equals("COMMIT") ){
 			stype = "SAVE COMMAND";
 			if(database != null){
 				save(database);
-			} else{
+			}
+			else{
 				System.out.println("A database needs to be created or loaded to " + ts.get(0) + ".");
 			}
-		} else if(ts.get(0).toUpperCase().equals("DELETE")  ){
+		}
+		else if(ts.get(0).toUpperCase().equals("DELETE")  ){
 			stype = "DELETE COMMAND";
-			
 			
 			// assuming condition is only = (equals).
 			if(ts.size() > 2 ){
-				
 				if(ts.get(1).toUpperCase().equals("FROM")  ){
 					//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
-					stype = stype + " +" + " FROM";
-					
-	} } else {
-		stype = "Syntax error";
-	}
+					stype = stype + " +" + " FROM";	
+				}
+			}
+			else
+				stype = "Syntax error";
+			
 			boolean whereclause = false;
 			if(ts.size() > 3 )
-			if(ts.get(3).toUpperCase().equals("WHERE")  ){
-				//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
-				stype = stype + " +" + " WHERE";
-				whereclause = true;
-} 			
+				if(ts.get(3).toUpperCase().equals("WHERE")  ){
+					//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
+					stype = stype + " +" + " WHERE";
+					whereclause = true;
+				} 
+			
 			String tempRowname = ts.get(2).toUpperCase();
 			String conditionfield;
 			String fieldValue;
+			
 			if(!whereclause) {
-			deleteRow(tempRowname.replace(";", "").trim());
-			} else {
+				deleteRow(tempRowname.replace(";", "").trim());
+			}
+			else {
 				if(ts.size() > 6 ){
-				
-				conditionfield = ts.get(4).toUpperCase();
-				if(!ts.get(5).toUpperCase().equals("=")){
-					System.out.println("Syntax error missing = sign" + ts.get(5).toUpperCase());
+					conditionfield = ts.get(4).toUpperCase();
+					if(!ts.get(5).toUpperCase().equals("=")){
+						System.out.println("Syntax error missing = sign" + ts.get(5).toUpperCase());
+					}
+					fieldValue = ts.get(6).toUpperCase().replace(";", "").trim();
+					deleteRowwhere(tempRowname, conditionfield, fieldValue);
 				}
-				fieldValue = ts.get(6).toUpperCase().replace(";", "").trim();
-				deleteRowwhere(tempRowname, conditionfield, fieldValue);
-				
-			} else {
-				stype = "Syntax error bad where clause";
+				else {
+					stype = "Syntax error bad where clause";
+				}
 			}
-				
-			}
-		
-		
-		} else if(ts.get(0).toUpperCase().equals("UPDATE")  ){
+		}
+		else if(ts.get(0).toUpperCase().equals("UPDATE")  ){
 			stype = "UPDATE COMMAND";
-			
-			
-			
-		} else if(ts.get(0).toUpperCase().equals("DROP")  ){
+		}
+		else if(ts.get(0).toUpperCase().equals("DROP")  ){
 			stype = "DROP COMMAND";
+			
 			if(ts.size() > 2  ){
-				
 				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
-					
 					stype = stype + "+" + "DATABASE";
 					if(database == null)
 						System.out.println("No database present - create or load a database first");
 					else if(database.dbCheck(ts.get(2).replace(";", "").trim().toUpperCase())){
 						database = null;
 						dropDB(ts.get(2).replace(";", "").trim().toUpperCase());
-					}else{
+					}
+					else{
 						dropDB(ts.get(2).replace(";", "").trim().toUpperCase());
 					}
-					
-				} else if(ts.get(1).toUpperCase().equals("TABLE")  ){   /// needs to add check for database is null or not
-					
+				}
+				else if(ts.get(1).toUpperCase().equals("TABLE")  ){   /// needs to add check for database is null or not	
 					stype = stype + "+" + "TABLE";
+					
 					if(!(database.tables.dropTable(ts.get(2).replace(";", "").trim().toUpperCase()))){
 						System.out.println("Table doesn't exist.");
 					}
-					
-					
-				}else {
+				}
+				else
 					stype = "Please enter something good";
-				}
-				} else {
+				
+			}
+			else
 					stype = "Syntax error";
-				}
-			
-			
 		} 
-		
-		else {
+		else
 			stype = "Please enter something good";
-		}
 		
 		return stype;
 	}
