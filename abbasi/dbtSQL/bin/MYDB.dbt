@@ -1,0 +1,36 @@
+<Database>
+  <name>MYDB</name>
+  <tables>
+    <tables>
+      <Table>
+        <name>s</name>
+        <table>
+          <rows>
+            <DataList>
+              <entries>
+                <Header>
+                  <type>CHARACTER</type>
+                  <name>sno</name>
+                  <places>2</places>
+                  <dec>0</dec>
+                </Header>
+                <Header>
+                  <type>CHARACTER</type>
+                  <name>sname</name>
+                  <places>20</places>
+                  <dec>0</dec>
+                </Header>
+                <Header>
+                  <type>CHARACTER</type>
+                  <name>city</name>
+                  <places>15</places>
+                  <dec>0</dec>
+                </Header>
+              </entries>
+            </DataList>
+          </rows>
+        </table>
+      </Table>
+    </tables>
+  </tables>
+</Database>
