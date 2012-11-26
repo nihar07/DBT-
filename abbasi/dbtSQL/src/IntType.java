@@ -7,7 +7,6 @@ public class IntType {
 	int number;
 	int numDigits;
 	int numFrac;
-	NumberFormat df;
 	
 	public IntType(String input){
 		number = Integer.parseInt(input);
@@ -15,10 +14,6 @@ public class IntType {
 	
 	public IntType(int x, String input){
 		numDigits = x;
-		df = new DecimalFormat("#");
-		df.setMaximumIntegerDigits(x);
-		df.setMaximumFractionDigits(0);
-		
 		number = Integer.parseInt(input);
 	}
 	
@@ -31,6 +26,12 @@ public class IntType {
 	}
 	
 	public String toString(){
-		return df.format(number);
+		String retString = Integer.toString(number);
+		if(numDigits == 0)
+			retString = "     " + retString;
+		else
+			while(retString.length() < numDigits)
+				retString = " " + retString;
+		return retString;
 	}
 }

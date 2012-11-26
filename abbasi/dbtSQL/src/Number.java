@@ -15,18 +15,18 @@ public class Number {
 	public Number(int x, String input){
 		numInt = x;
 		df = new DecimalFormat("#");
-		df.setMaximumIntegerDigits(x);
+		df.setMaximumIntegerDigits(numInt);
 		df.setMaximumFractionDigits(0);
 		
 		number = Double.parseDouble(input);
 	}
 	
 	public Number(int x, int y, String input){
-		numInt = x;
+		numInt = x - y;
 		numFrac = y;
 		df = new DecimalFormat("#.0");
-		df.setMaximumIntegerDigits(x);
-		df.setMaximumFractionDigits(y);
+		df.setMaximumIntegerDigits(numInt);
+		df.setMaximumFractionDigits(numFrac);
 		
 		number = Double.parseDouble(input);
 	}
@@ -44,6 +44,6 @@ public class Number {
 	}
 	
 	public String toString(){
-		return df.format(number);
+		return " " + df.format(number);
 	}
 }

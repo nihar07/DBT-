@@ -6,7 +6,7 @@ public class Table {
 	
 	public Table(String command){
 		// pull table name, trim whitespace before opening parenthesis
-		name = command.substring(0, command.indexOf('(')).trim();
+		name = command.substring(0, command.indexOf('(')).trim().toUpperCase();
 		command = command.substring(name.length(), command.length()).trim();
 		ArrayList<String> createList = parseCreate(command);
 		table = new RowList();
@@ -227,98 +227,129 @@ public class Table {
 				System.out.println("Syntax error:  # fields != # literals");
 				return;
 			}
+		}
+		
+		//insert as many Objects into dlist as there are literals
+		for(int i = 0; i < literals.size(); i++)
+			dlist.add(new Object());
+		
+		for(int i = 0; i < literals.size(); i++){
+			String fieldError = "Syntax error:  Field " + (i+1);
+			literalError = "Syntax error:  Literal " + (i+1);
 			
-			
-			for(int i = 0; i < literals.size(); i++){
-				String fieldError = "Syntax error:  Field " + (i+1);
-				literalError = "Syntax error:  Literal " + (i+1);
-				
+			//if (field[, field]...) exists
+			if(fields != null){
 				//search for field name in the attributes
 				if((index = table.getRow(0).getFieldIndex(fields.get(i))) == -1){
 					System.out.println(fieldError);
 					return;
 				}
+			}
+			else{
+				index = i;
+			}
+			
+			h = (Header)table.getRow(0).getData(index);
+			l = literals.get(i);
 				
-				h = (Header)table.getRow(0).getData(index);
-				l = literals.get(i);
-				
-				//check for char() type by start & end quotes
-				if(l.startsWith("\"") && l.endsWith("\"")){
-					l = l.substring(1, l.length() - 1);
-					if(!(h.getType().equalsIgnoreCase("character"))){
-						System.out.println(fieldError);
-						return;
-					}
-					//check length of string against assigned places
-					if(l.length() > h.getPlaces()){
-						System.out.println("Too many characters in literal " + (i+1));
-						return;
-					}
-					
-					dlist.add(new CharType(h.getPlaces(), l));
+			//check for char() type by start & end quotes
+			if(l.startsWith("\"") && l.endsWith("\"")){
+				l = l.substring(1, l.length() - 1);
+				if(!(h.getType().equalsIgnoreCase("character"))){
+					System.out.println(fieldError);
+					return;
 				}
-				//check for number type in field
-				else if(h.getType().equalsIgnoreCase("Integer")){
-					//verify that literal is integer
-					if(!(isInteger(l))){
-						System.out.println(literalError);
-						return;
-					}
-					//if places != 0, make sure integer isn't too long
-					if(h.getPlaces() > 0){
-						if(!(l.length() > h.getPlaces())){
-							dlist.add(new IntType(h.getPlaces(),l));
-						}
-						else{
-							System.out.println("Too many digits in literal " + (i+1));
-							return;
-						}
-					}
-					else  //else places == 0, add literal
-						dlist.add(new IntType(l));
+				//check length of string against assigned places
+				if(l.length() > h.getPlaces()){
+					System.out.println("Too many characters in literal " + (i+1));
+					return;
 				}
-				//check for number type in field
-				else if(h.getType().equalsIgnoreCase("number")){
-					//verify that literal is double
-					if(!(isDouble(l))){
-						System.out.println(literalError);
-						return;
+				dlist.remove(index);
+				dlist.add(index, new CharType(h.getPlaces(), l));
+			}
+			//check for number type in field
+			else if(h.getType().equalsIgnoreCase("integer")){
+				//verify that literal is integer
+				if(!(isInteger(l))){
+					System.out.println(literalError);
+					return;
+				}
+				//if places != 0, make sure integer isn't too long
+				if(h.getPlaces() > 0){
+					if(!(l.length() > h.getPlaces())){
+						dlist.remove(index);
+						dlist.add(index, new IntType(h.getPlaces(),l));
 					}
-					//if places != 0
-					if(h.getPlaces() > 0){
-						//check for decimal
-						if(l.contains(".")){
-							//verify length of integer part
-							if(!(l.substring(0,l.indexOf(".")).length()> h.getPlaces())
-										&& h.getDec() > 0){
-									//verify length of decimal part
-									if(!(l.substring(l.indexOf(".")).length() > h.getDec())){
-										dlist.add(new Number(h.getPlaces(), h.getDec(), l));
-										continue;
-									}
-							}					
-						}
-						//no decimal part, check length of integer
-						else if(!(l.length() > h.getPlaces())){
-							dlist.add(new Number(h.getPlaces(), l));
-							continue;
-						}
-					}
-					//no length specifiers; add to row
 					else{
-						dlist.add(new Number(l));
+						System.out.println("Too many digits in literal " + (i+1));
+						return;
+					}
+				}
+				else{  //else places == 0, add literal
+					dlist.remove(index);
+					dlist.add(index, new IntType(l));
+				}
+			}
+			//check for number type in field
+			else if(h.getType().equalsIgnoreCase("number")){
+				//verify that literal is double
+				if(!(isDouble(l))){
+					System.out.println(literalError);
+					return;
+				}
+				//if places != 0
+				if(h.getPlaces() > 0){
+					//check for decimal
+					if(l.contains(".")){
+						//verify length of integer part
+						if(!(l.substring(0,l.indexOf(".")).length()> (h.getPlaces() - h.getDec()))
+								&& h.getDec() > 0){
+							//verify length of decimal part
+							if(!(l.substring(l.indexOf(".")+1).length() > h.getDec())){
+								dlist.remove(index);
+								dlist.add(index, new Number(h.getPlaces(), h.getDec(), l));
+								continue;
+							}
+						}					
+					}
+					//no decimal part, check length of integer
+					else if(!(l.length() > h.getPlaces())){
+						dlist.remove(index);
+						dlist.add(index, new Number(h.getPlaces(), l));
 						continue;
 					}
-					
+				}
+				//no length specifiers; add to row
+				else{
+					dlist.remove(index);
+					dlist.add(index, new Number(l));
+					continue;
+				}
+				
+				System.out.println(literalError);
+				return;
+			}
+			//check for date type
+			else if(h.getType().equalsIgnoreCase("date")){
+				//check for both slashes in date
+				if(l.contains("/")){
+					if(l.substring(l.indexOf("/")).contains("/")){
+						dlist.remove(index);
+						dlist.add(index, new DateType(l));
+					}
+				}
+				else{
 					System.out.println(literalError);
 					return;
 				}
 			}
+			else{
+				System.out.println("What just happened?");
+				return;
+			}	
 		}
 		
-		
-		
-		
+		table.add(dlist);
 	}
 	
 	public void print(){
@@ -331,7 +362,7 @@ public class Table {
 		if(table.getSize() > 0){
 			for(int i = 1; i < table.getSize(); i++){
 				for(int j = 0; j < table.getRow(i).getSize(); j++){
-					System.out.print(table.getRow(i).getData(j) + "\t");
+					System.out.print(table.getRow(i).getData(j));
 				}
 				System.out.println();
 			

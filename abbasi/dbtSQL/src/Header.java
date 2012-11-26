@@ -39,6 +39,9 @@ public class Header {
 		if((places + dec) > 0)
 			while(retString.length() < (places + dec))
 				retString = retString + " ";
+		else if(type.contentEquals("DATE"))
+			while(retString.length() < 10)
+				retString = retString + " ";
 		else
 			retString = retString + "     ";
 		return retString;

@@ -15,9 +15,10 @@ public class CharType {
 	}
 	
 	public String toString(){
-		while(contents.length() < numChar)
-			contents = contents + " ";
+		String retString = contents;
+		while(retString.length() < numChar)
+			retString = retString + " ";
 		
-	return contents;
+	return retString;
 	}
 }

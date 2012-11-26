@@ -7,8 +7,20 @@ public class DataList {
 		entries = new ArrayList<Object>();
 	}
 	
+	public DataList(int size){
+		entries = new ArrayList<Object>(size);
+	}
+	
 	public void add(Object o){
 		entries.add(o);
+	}
+	
+	public void add(int index, Object o){
+		entries.add(index, o);
+	}
+	
+	public void remove(int index){
+		entries.remove(index);
 	}
 	
 	public Object getData(int index){

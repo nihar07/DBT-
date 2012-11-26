@@ -77,16 +77,20 @@ public class dbt {
 				stype = stype + "+" + "DATABASE";
 				database = new Database(ts);
 				
-			} else if(ts.get(1).toUpperCase().equals("TABLE")  ){
+			} else if(ts.get(1).toUpperCase().equals("TABLE")  && cs.contains("(")){
+				String cmd = cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim();
+				String name = cmd.substring(0, cmd.indexOf("(")).trim().toUpperCase();
 				if(database == null){
-					stype = "  *Error:  Cannot create table - no database loaded.";
+					stype = "  *Error:  Cannot create table - no database loaded";
+					return stype;
+				}
+				else if(database.getTable(name) != null){
+					stype = "  *Error:  Table already exists in database";
 					return stype;
 				}
 				
-				database.createTable(cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim());	
-
+				database.createTable(cmd);	
 				stype = stype + "+" + "TABLE";
-				
 				
 			}else {
 				stype = "Please enter something good";
