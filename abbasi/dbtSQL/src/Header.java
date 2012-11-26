@@ -43,7 +43,7 @@ public class Header {
 			while(retString.length() < 10)
 				retString = retString + " ";
 		else
-			retString = retString + "     ";
+			retString = retString + "   ";
 		return retString;
 	}
 }

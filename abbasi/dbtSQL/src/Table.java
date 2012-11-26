@@ -176,6 +176,7 @@ public class Table {
 				//no argument for # digits
 				else if(type.contentEquals("NUM") || type.contentEquals("NUMBER")){
 					header = new Header("NUMBER", name, places);
+					dlist.add(header);
 				}
 				//mismatched data type
 				else{
@@ -374,92 +375,112 @@ public class Table {
 	}
 	
 	public void print(){
+		int attributes = table.getRow(0).getSize();
+		int rows = table.getSize();
+		ArrayList<Header> headers = new ArrayList<Header>();
+		Header h;
+		
 		//print table name
 		System.out.println(name + ": Table");
 		
 		//print attributes
-		for(int i = 0; i < table.getRow(0).getSize(); i++){
-			System.out.print(table.getRow(0).getData(i));
+		for(int i = 0; i < attributes; i++){
+			h = (Header)table.getRow(0).getData(i);
+			headers.add(h);
+			System.out.print(h + "   ");
 		}
 		System.out.println("\n----------------------------------------------");
-		if(table.getSize() > 0){
-			for(int i = 1; i < table.getSize(); i++){
-				for(int j = 0; j < table.getRow(i).getSize(); j++){
-					System.out.print(table.getRow(i).getData(j) + "   ");
+		if(rows > 0){
+			for(int i = 1; i < rows; i++){
+				for(int j = 0; j < attributes; j++){
+					String space = "   ";
+					if(headers.get(j).getPlaces() + headers.get(j).getDec() > 0){
+						while((headers.get(j).getName().length() + 3) >
+							(headers.get(j).getPlaces() + headers.get(j).getDec()
+							+ space.length()))
+							space = space + " ";
+					}
+					else{
+						while(table.getRow(i).getData(j).toString().length()
+								+ space.length() < headers.get(j).getName().length() + 6)
+							space = space + " ";
+					}
+					System.out.print(table.getRow(i).getData(j) + space);
+					
 				}
 				System.out.println();
 			
 			}
 		}
-		for(int p = 0; p < 2; p++)
-			System.out.println();
 	}
 	
 	
 	
 	
 	public void deleteallrowsForthetable(){
-		
+		 
 		if(table.getSize() == 1){
 			//do nothing
 			System.out.println("no rows to delete");
 		} else {
-			for(int i = (table.getSize() - 1); i > 1; i--){
-				
+			System.out.println("deleted all rows from table before " + (table.getSize() - 1) );
+			for(int i = (table.getSize() - 1); i > 0; i--){
+				//System.out.println(table.getRow(i).toString() + "\t");
 				table.deleteRow(i);
-				//System.out.print(table.getRow(0).getData(i) + "\t");
-				
-				
+		 
+		 
+		 
 			}
 			System.out.println("deleted all rows from table");
 		}
-		
-		
+		 
+		 
 	}
 	
 	public void deleterowswhere(String conditionField, String fieldValue){
 		String temprowfield;
 		int indexofcondfield = -1;
 		//System.out.println("table row size" + table.getRow(0).getSize() + "conditionField " + conditionField + "field value" + fieldValue);
-		
+		 
 		for(int j = 0; j < table.getRow(0).getSize(); j++ ) {
-			//System.out.println("conditionField " + conditionField + "  " + table.getRow(0).getData(j)); 
-			if(conditionField.equals(table.getRow(0).getData(j).toString().toUpperCase())){
-				//System.out.println("conditionField " + conditionField + "  " + table.getRow(0).getData(j)); 
+			// System.out.println("conditionField " + conditionField + ".  " + table.getRow(0).getData(j).toString().trim().toUpperCase() + "."); 
+			if(conditionField.contains(table.getRow(0).getData(j).toString().trim().toUpperCase())){
+				System.out.println("conditionField " + conditionField + "  " + table.getRow(0).getData(j)); 
 		indexofcondfield = j;
 			}
 		}
 		System.out.println(indexofcondfield);
-		
+		 
 		if(indexofcondfield == -1){
 			System.out.println("condition field is not valid or does not exist");
 		} else {
-for(int i = (table.getSize() - 1); i > 1; i--){
-	
-	if(table.getRow(i).getData(indexofcondfield).toString().equals(fieldValue)){
+for(int i = (table.getSize() - 1); i > 0; i--){
+	System.out.println("fieldvalue" + fieldValue + ". " + table.getRow(i).getData(indexofcondfield).toString() + "." + i );
+		 
+	if((fieldValue.toString().trim().toUpperCase()).equals(table.getRow(i).getData(indexofcondfield).toString().trim().toUpperCase())){
 		table.deleteRow(i);
 		System.out.println("Row " + (i+1) + "got deleted");
 	}
-				
-				
+		 
+		 
 				//System.out.print(table.getRow(0).getData(i) + "\t");
 			}
 		}
 		//for(int j = 0; j < )
-	//	table.getRow(0).getData(index)
-		
-		
-		if(table.getSize() == 1){
-			//do nothing
-		} else {
-			for(int i = table.getSize(); i > 1; i--){
-				
-				table.deleteRow(i);
-				//System.out.print(table.getRow(0).getData(i) + "\t");
-			}
-		}
-		
-		
+	// table.getRow(0).getData(index)
+		 
+		 
+		// if(table.getSize() == 1){
+			// //do nothing
+		// } else {
+			// for(int i = table.getSize(); i > 1; i--){
+				//
+				// table.deleteRow(i);
+				// //System.out.print(table.getRow(0).getData(i) + "\t");
+			// }
+		// }
+		 
+		 
 	}
 
 	public boolean checkParentheses(String cmd){

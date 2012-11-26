@@ -6,7 +6,7 @@ public class CharType {
 	
 	public CharType(int n, String input){
 		numChar = n;
-		if(input.length() < numChar)
+		if(!(input.length() > numChar))
 			contents = input;
 	}
 	

@@ -10,6 +10,7 @@ public class Number {
 	
 	public Number(String input){
 		number = Double.parseDouble(input);
+		df = new DecimalFormat("#");
 	}
 	
 	public Number(int x, String input){
@@ -44,6 +45,9 @@ public class Number {
 	}
 	
 	public String toString(){
-		return " " + df.format(number);
+		if(df == null)
+			return Integer.toString((int)number);
+		else
+			return df.format(number);
 	}
 }

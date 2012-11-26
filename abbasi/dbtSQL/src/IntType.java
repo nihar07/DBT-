@@ -28,10 +28,10 @@ public class IntType {
 	public String toString(){
 		String retString = Integer.toString(number);
 		if(numDigits == 0)
-			retString = "     " + retString;
+			retString = retString + "   ";
 		else
 			while(retString.length() < numDigits)
-				retString = " " + retString;
+				retString = retString + " ";
 		return retString;
 	}
 }
