@@ -8,7 +8,11 @@ public class Table {
 		// pull table name, trim whitespace before opening parenthesis
 		name = command.substring(0, command.indexOf('(')).trim().toUpperCase();
 		command = command.substring(name.length(), command.length()).trim();
-		ArrayList<String> createList = parseCreate(command);
+		ArrayList<String> createList;
+		if((createList = parseCreate(command)) == null){
+			this.name = null;
+			return;
+		}
 		table = new RowList();
 		createFields(createList);
 	}
@@ -19,6 +23,11 @@ public class Table {
 		
 		// remove semicolon & trim white space
 		cmd = cmd.replace(";", "").trim();
+		
+		if(cmd.charAt(cmd.length()-1) != ')'){
+			System.out.println("Error in CREATE TABLE syntax");
+			return null;
+		}
 		
 		// check for matching sets of parentheses
 		if(!checkParentheses(cmd))
@@ -279,14 +288,27 @@ public class Table {
 			
 			h = headers.get(index);
 			l = literals.get(i);
-				
-			//check for char() type by start & end quotes
-			if(l.startsWith("\"") && l.endsWith("\"")){
-				l = l.substring(1, l.length() - 1);
-				if(!(h.getType().equalsIgnoreCase("character"))){
+			
+			//check for character type in field
+			if(h.getType().equalsIgnoreCase("character")){
+				//if starting quote but no ending quote
+				if(l.startsWith("\"") && !(l.endsWith("\""))){
+					//get next literal, add to current string
+					literals.remove(i);
+					l = l + ", " + literals.get(i);
+					literals.remove(i);
+					literals.add(i, l);
+				}
+				//if starting & ending quotes not present
+				if(!(l.startsWith("\"") && l.endsWith("\""))){
+					//return error
 					System.out.println(fieldError);
 					return;
 				}
+				
+				// remove quotations from literal
+				l = l.substring(1, l.lastIndexOf("\""));
+				
 				//check length of string against assigned places
 				if(l.length() > h.getPlaces()){
 					System.out.println("Too many characters in literal " + (i+1));
@@ -295,7 +317,7 @@ public class Table {
 				dlist.remove(index);
 				dlist.add(index, new CharType(h.getPlaces(), l));
 			}
-			//check for number type in field
+			//check for integer type in field
 			else if(h.getType().equalsIgnoreCase("integer")){
 				//verify that literal is integer
 				if(!(isInteger(l))){
@@ -388,6 +410,7 @@ public class Table {
 		}
 		
 		table.add(dlist);
+		System.out.println("Successfully inserted row into " + name);
 	}
 	
 	/* UpdateFields
@@ -469,7 +492,8 @@ public class Table {
 			headers.add(h);
 			System.out.print(h + "   ");
 		}
-		System.out.println("\n----------------------------------------------");
+		System.out.print("\n----------------------------------------");
+		System.out.println("----------------------------------------");
 		if(rows > 0){
 			for(int i = 1; i < rows; i++){
 				for(int j = 0; j < attributes; j++){
@@ -478,6 +502,8 @@ public class Table {
 						while((headers.get(j).getName().length() + 3) >
 							(headers.get(j).getPlaces() + headers.get(j).getDec()
 							+ space.length()))
+							space = space + " ";
+						if(headers.get(j).getType().equals("NUMBER"))
 							space = space + " ";
 					}
 					else{
@@ -510,7 +536,7 @@ public class Table {
 	}
 	
 	public void deleterowswhere(String conditionField, String fieldValue){
-		String temprowfield;
+		//String temprowfield;
 		int indexofcondfield = -1;
 		//System.out.println("table row size" + table.getRow(0).getSize() + "conditionField " + conditionField + "field value" + fieldValue);
 		 

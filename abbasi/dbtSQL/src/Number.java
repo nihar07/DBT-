@@ -25,7 +25,13 @@ public class Number {
 	public Number(int x, int y, String input){
 		numInt = x - y;
 		numFrac = y;
-		df = new DecimalFormat("#.0");
+		String format = "#";
+		if(numFrac > 0){
+			format = format + ".";
+			for(int i = 0; i < numFrac; i++)
+				format = format + "0";
+		}
+		df = new DecimalFormat(format);
 		df.setMaximumIntegerDigits(numInt);
 		df.setMaximumFractionDigits(numFrac);
 		
@@ -45,9 +51,15 @@ public class Number {
 	}
 	
 	public String toString(){
+		
 		if(df == null)
 			return Integer.toString((int)number);
-		else
-			return df.format(number);
+		else{
+			String retString = df.format(number);
+			while(retString.length() < (numInt + numFrac + 1))
+				retString = " " + retString;
+		return retString;
+		}
+			
 	}
 }

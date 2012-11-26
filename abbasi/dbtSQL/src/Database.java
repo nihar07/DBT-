@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class Database {
@@ -12,7 +11,9 @@ public class Database {
 	
 	// create a new table in the database
 	public void createTable(String command){
-		tables.add(new Table(command));
+		Table t = new Table(command);
+		if(t.name != null)
+			tables.add(t);
 	}
 	
 	

@@ -20,7 +20,10 @@ public class dbt {
 		System.out.println("Welcome to DBT SQL!");
 		dbt mydbt = new dbt();
 		String temp = new String();
+		
+		//get first input from user
 		String input = mydbt.entercommand();
+		
 		ArrayList<String> tokenizestatement = new ArrayList<String>();
 		StringTokenizer st;
 		
@@ -65,87 +68,87 @@ public class dbt {
 		
 		//if CREATE
 		if(ts.get(0).toUpperCase().equals("CREATE")  ){
-			//stype = "CREATE COMMAND";
-			
+			//verify number of words in command (>2)
 			if(ts.size() > 2  ){
+				//if second word is "DATABASE", create database
 				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
-				
-					//stype = stype + "+" + "DATABASE";
-					database = new Database(ts);
-					stype = "Database created:  " + database.getName() + "\n";
+					if((database = new Database(ts)) != null)
+						stype = "Database created:  " + database.getName() + "\n";
 				
 				}
+				//if second word is "TABLE", create table
 				else if(ts.get(1).toUpperCase().equals("TABLE")  && cs.contains("(")){
 					String cmd = cs.substring((cs.toUpperCase()).indexOf("TABLE")+5, cs.length()).trim();
 					String name = cmd.substring(0, cmd.indexOf("(")).trim().toUpperCase();
 					
+					//make sure database is loaded
 					if(database == null){
 						stype = "  *Error:  Cannot create table - no database loaded";
 						return stype;
 					}
+					//check for pre-existing table name in current database
 					else if(database.getTable(name) != null){
 						stype = "  *Error:  Table already exists in database";
 						return stype;
 					}
 					
-					database.createTable(cmd);	
-					stype = "Table created:  " + name + "\n";
+					//create table
+					database.createTable(cmd);
+					if(database.getTable(name) != null)
+						stype = "Table created:  " + name + "\n";
 				
 				}
 				else 
-					stype = "Please enter something good";
+					stype = "Invalid command.  Please enter a valid command.";
 			}
 			else {
 				stype = "Syntax error";
 			}
 			//stype = "CREATE COMMAND";
 		}
+		//if INSERT
 		else if(ts.get(0).toUpperCase().equals("INSERT")  ){
-			stype = "INSERT COMMAND";
-			
+			//check for keywords INTO and VALUES
 			if(ts.size() > 1 && 
 					ts.get(1).toUpperCase().equals("INTO") && 
 					cs.toUpperCase().contains("VALUES")){
-							
+				
+				//verify database isn't null
 				if(database != null)
 					database.insert(cs.substring(cs.toUpperCase().indexOf("INTO")+4).trim());
+				//error
 				else
 					System.out.println("You must first create or load a database");
-				
-				stype = stype + "+" + "INTO";
-							
 			}
 			else
-				stype = "Syntax error";
+				stype = "Invalid command.  Please enter a valid command.";
 						
 		}
+		//if SELECT
 		else if(ts.get(0).toUpperCase().equals("SELECT")  ){
-			stype = "SELECT COMMAND";
-			
 			if(ts.size() > 1 ){
-				if(ts.get(1).toUpperCase().equals("*")  ){
-					stype = stype + "+" + "* is here";
+				//verify arguments * and FROM
+				if(ts.get(1).equals("*")  && ts.get(2).toUpperCase().equals("FROM")){
 					String table = ts.get(3).replace(";","");
 					database.select(table);
 				}
 			}
-			else {
-				stype = "Syntax error";
-			}
+			else 
+				stype = "Invalid command.  Please enter a valid command.";
 		}
+		//if LOAD
 		else if(ts.get(0).toUpperCase().equals("LOAD")  ){
-			stype = "LOAD COMMAND";
-			
+			//check for keyword DATABASE
 			if(ts.size() > 2 && ts.get(1).toUpperCase().equals("DATABASE")  ){
-				stype = stype + "+" + "DATABASE";
 				load(ts.get(2));
 			}
 			else {
 				stype = "Syntax error";
 			}
 		}
+		//if SAVE or COMMIT
 		else if(ts.get(0).replace(";", "").trim().toUpperCase().equals("SAVE") || ts.get(0).replace(";", "").trim().toUpperCase().equals("COMMIT") ){
-			stype = "SAVE COMMAND";
+			//verify database is loaded
 			if(database != null){
 				save(database);
 			}
@@ -153,6 +156,7 @@ public class dbt {
 				System.out.println("A database needs to be created or loaded to " + ts.get(0) + ".");
 			}
 		}
+		//if DELETE
 		else if(ts.get(0).toUpperCase().equals("DELETE")  ){
 			stype = "DELETE COMMAND";
 			
@@ -164,13 +168,12 @@ public class dbt {
 				}
 			}
 			else
-				stype = "Syntax error";
+				stype = "Invalid command.  Please enter a valid command.";
 			
 			boolean whereclause = false;
 			if(ts.size() > 3 )
 				if(ts.get(3).toUpperCase().equals("WHERE")  ){
 					//database.deleteFrom(cs.substring((cs.toUpperCase()).indexOf("FROM")+4, cs.length()).trim());
-					stype = stype + " +" + " WHERE";
 					whereclause = true;
 				} 
 			
@@ -195,18 +198,22 @@ public class dbt {
 				}
 			}
 		}
+		//if UPDATE
 		else if(ts.get(0).toUpperCase().equals("UPDATE")  ){
-			stype = "UPDATE COMMAND";
+			//verify database is loaded
 			if(database == null){
 				return "A database must be created or loaded first.";
 			}
+			//verify number of words in command
 			if(ts.size() < 4){
 				return "Syntax Error: Missing arguments.";
 			}
+			//verify table exists
 			if(database.tables == null){
 				return "A table must be created first.";
 			}
 			if(database.tables.getTable(ts.get(1).trim().toUpperCase()) != null){
+					//check for keyword SET
 					if(ts.get(2).equalsIgnoreCase("SET")){
 					
 						System.out.println(update(ts.get(1), CompleteStatement));
@@ -215,18 +222,18 @@ public class dbt {
 						return "Syntax Error: Missing 'SET' keyword.";
 					}
 			}
+			//failed to find table to update
 			else{
 				return "Table doesn't exist in database " + database.name + ".";
 			}
 		}
+		//if DROP
 		else if(ts.get(0).toUpperCase().equals("DROP")  ){
-			stype = "DROP COMMAND";
-			
 			if(ts.size() > 2  ){
 				if(ts.get(1).toUpperCase().equals("DATABASE")  ){
-					stype = stype + "+" + "DATABASE";
+					
 					if(database == null)
-						System.out.println("No database present - create or load a database first");
+						System.out.println("No database loaded - create or load a database first");
 					else if(database.dbCheck(ts.get(2).replace(";", "").trim().toUpperCase())){
 						database = null;
 						dropDB(ts.get(2).replace(";", "").trim().toUpperCase());
@@ -235,21 +242,23 @@ public class dbt {
 						dropDB(ts.get(2).replace(";", "").trim().toUpperCase());
 					}
 				}
-				else if(ts.get(1).toUpperCase().equals("TABLE")  ){   /// needs to add check for database is null or not	
-					stype = stype + "+" + "TABLE";
-					
-					if(!(database.tables.dropTable(ts.get(2).replace(";", "").trim().toUpperCase()))){
-						System.out.println("Table doesn't exist.");
+				else if(ts.get(1).toUpperCase().equals("TABLE")  ){   // needs to add check for database is null or not	
+					if(database != null){
+						if(!(database.tables.dropTable(ts.get(2).replace(";", "").trim().toUpperCase()))){
+							System.out.println("Table doesn't exist.");
+						}
 					}
+					else
+						System.out.println("No database loaded - create or load a database first");
 				}
 				else
-					stype = "Please enter something good";
+					stype = "Invalid command.  Please enter a valid command.";
 			}
 			else
-					stype = "Syntax error";
+					stype = "Invalid command.  Please enter a valid command.";
 		} 
 		else
-			stype = "Please enter something good";
+			stype = "Invalid command.  Please enter a valid command.";
 		
 		return stype;
 	}
@@ -267,6 +276,7 @@ public class dbt {
 			writer = new FileWriter(file);
 			writer.write(xstream.toXML(DB));
 			writer.close();
+			System.out.println("Database saved:  " + DB.getName().toUpperCase());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -292,6 +302,7 @@ public class dbt {
 
 			database = (Database)xstream.fromXML(buff.toString());
 			br.close();
+			System.out.println("Database loaded:  " + dbName);
 		} catch (FileNotFoundException e) {
 			System.out.println("Database doesn't exist.");
 		} catch (IOException e) {
@@ -310,7 +321,7 @@ public class dbt {
 		if(rmFile.exists()){
 			rmFile.delete();
 		} else {
-			System.out.println("Database doesn't exist.");
+			System.out.println("Database doesn't exist on disk - removed from main memory.");
 		}
 	}
 	
